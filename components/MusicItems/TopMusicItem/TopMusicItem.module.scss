@@ -1,0 +1,69 @@
+@import "../../../styles/mixins.scss";
+
+.TopMusicItem {
+    display: flex;
+    flex-direction: column;
+    width: 16rem;
+
+    @include laptop {
+        width: 20rem;
+    }
+
+    .image {
+        width: 16rem;
+        height: 16rem;
+        object-fit: cover;
+
+        @include laptop {
+            width: 20rem;
+            height: 20rem;
+        }
+    }
+
+    .positionContainer {
+        display: flex;
+        gap: .8rem;
+        align-items: center;
+        font-family: Poppins;
+        font-size: 1.2rem;
+        margin-top: .8rem;
+
+        @include laptop {
+            gap: 1.2rem;
+            margin-top: 1.2rem;
+        }
+
+        svg {
+            width: .8rem;
+            transform: translateY(-.2rem);
+        }
+    }
+
+    .title {
+        font-size: 1.8rem;
+        margin-bottom: .2rem;
+
+        @include laptop {
+            font-size: 2.2rem;
+        }
+    }
+
+    .link {
+        display: flex;
+        gap: .8rem;
+        font-family: Poppins;
+        margin: 1.5rem auto 0 auto;
+
+        @include laptop {
+            margin-top: 2rem;
+        }
+    
+        svg {
+            width: 1rem;
+        }
+    
+        .green {
+            color: $spotify;
+        }
+    }
+}

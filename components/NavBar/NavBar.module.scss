@@ -1,0 +1,156 @@
+@import "../../styles/mixins.scss";
+
+.NavBar {
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 999;
+    display: flex;
+    justify-content: center;
+    padding: 2rem 1rem 1rem 2rem;
+    border-bottom: 1px solid rgba(white, .1);
+    backdrop-filter: blur(2rem);
+    background-color: rgba($dark, .02);
+
+    @include laptop {
+        padding: 3rem 0 1.5rem 0;
+    }
+
+    .content {
+        display: flex;
+        width: 100%;
+        max-width: 84rem;
+        align-items: baseline;
+        position: relative;
+
+        .appName {
+            font-size: 1.2rem;
+
+            @include laptop {
+                font-size: 1.5rem;
+            }
+        }
+
+        .text {
+            font-size: .8rem;
+            margin: 0 .2rem 0 .5rem;
+
+            @include laptop {
+                font-size: 1rem;
+                margin: 0 .5rem 0 2rem;
+            }
+        }
+
+        .logo {
+            height: 1.6rem;
+            transform: translateY(.4rem);
+            
+            @include laptop {
+                height: 2rem;
+                transform: translateY(.5rem);
+            }
+        }
+
+        .contentRight {
+            display: flex;
+            align-items: center;
+            margin-left: auto;
+
+            .language {
+                font-family: Poppins;
+                margin-right: 1rem;
+                position: relative;
+                height: 2rem;
+                z-index: 1;
+
+                @include laptop {
+                    margin-right: 3rem;
+
+                    &::before {
+                        content: attr(data-popup);
+                        font-family: Raleway;
+                        font-size: .8rem;
+                        white-space: nowrap;
+                        padding: 1em;
+                        border-radius: .5em;
+                        background-color: darken($dark, 1%);
+                        border: 1px solid rgba(white, .1);
+                        position: absolute;
+                        bottom: -2.5rem;
+                        left: 50%;
+    
+                        opacity: 0;
+                        pointer-events: none;
+                        transform: translate(-50%, -.1rem);
+                        transition: .2s ease-in-out;
+                    }
+    
+                    &:hover {
+                        &::before {
+                            opacity: 1;
+                            pointer-events: all;
+                            transform: translate(-50%, 0);
+                        }
+                    }
+                }
+            }
+
+            .loginButton {
+                display: flex;
+                align-items: center;
+                gap: .8rem;
+                padding: .5rem 1rem;
+                border-radius: 99rem;
+                cursor: pointer;
+                border: 1px solid transparent;
+                transition: border .3s ease-in-out;
+
+                img {
+                    display: none;
+
+                    @include laptop {
+                        display: block;
+                        width: 2rem;
+                        
+                        &.userPP {
+                            border-radius: 50%;
+                        }
+                    }
+                }
+
+                &.logged {
+                    padding: .5rem;
+
+                    img {
+                        display: block;
+                        width: 2rem;
+                        
+                        &.userPP {
+                            border-radius: 50%;
+                        }
+                    }
+
+                    p {
+                        display: none;
+
+                        @include laptop {
+                            display: block;
+                        }
+                    }
+
+                    @include laptop {
+                        padding: .5rem 1rem;
+                    }
+                }
+
+                &:hover {
+                    border: 1px solid rgba(white, .1);
+                }
+
+                &:active {
+                    background-color: rgba(white, .01);
+                }
+            }
+        }
+    }
+}

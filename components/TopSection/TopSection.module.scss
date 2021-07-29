@@ -1,0 +1,54 @@
+@import "../../styles/mixins.scss";
+
+.topSection {
+    display: flex;
+    justify-content: center;
+    padding: 8rem 2rem 2rem 2rem;
+
+    @include laptop {
+        padding: 16rem 0 10rem 0;
+        width: 100%;
+    }
+
+    .content {
+        width: 100%;
+        max-width: 64rem;
+
+        .title {
+            @include title;
+
+            @include laptop {
+                max-width: 70%;
+            }
+        }
+
+        .buttonsContainer {
+            display: flex;
+            gap: .5rem;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 2rem;
+
+            @include laptop {
+                gap: 4rem;
+                margin-top: 4rem;
+            }
+
+            .button {
+                white-space: nowrap;
+                transition: color .3s ease-in-out, border .3s ease-in-out;
+                @include button($main, $spotify);
+
+                &.unselected {
+                    color: white;
+                    border: 1px solid transparent;
+
+                    &:hover {
+                        border: 1px solid rgba(white, .1);
+                    }
+                }
+            }
+        }
+    }
+}

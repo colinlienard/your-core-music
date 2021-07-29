@@ -1,0 +1,224 @@
+@import "mixins";
+
+@keyframes float {
+    0% { transform: translateY(-.5rem); }
+    50% { transform: translateY(.5rem); }
+    100% { transform: translateY(-.5rem); }
+}
+
+@keyframes star {
+    0% {
+        opacity: 0;
+        transform: translateY(250%);
+    }
+    10% {
+        opacity: 1;
+    }
+    90% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+        transform: translateY(-150%);
+    }
+}
+
+.topSection {
+    height: clamp(46rem, 100vh, 48rem);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 8rem 2rem 2rem 2rem;
+    overflow: hidden;
+    position: relative;
+
+    @include laptop {
+        height: 100vh;
+        justify-content: center;
+        padding: 0;
+    }
+
+    .content {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        max-width: 64rem;
+        height: 100%;
+
+        @include laptop {
+            height: auto;
+            padding: 4rem 0 0 2rem;
+        }
+
+        .hero {
+            white-space: nowrap;
+            @include title;
+        }
+
+        .subhero {
+            max-width: 90%;
+            margin-top: 2rem;
+
+            @include laptop {
+                max-width: 24rem;
+            }
+        }
+
+        .buttonIcon {
+            margin: auto auto 0 auto;
+            @include button(white, $spotify);
+
+            @include laptop {
+                margin: 3rem 0 0 0;
+            }
+        }
+    }
+
+    .longArrow {
+        display: none;
+
+        @include laptop {
+            display: block;
+            position: absolute;
+            bottom: 2rem;
+            height: 4rem;
+            cursor: pointer;
+        }
+    }
+
+    .radialGradient {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -1;
+        background: radial-gradient(min(100vw, 48rem) min(100vw, 48rem) at 100% 100%, rgba($main, .2), transparent);
+    }
+
+    .favoritesContainer {
+        position: absolute;
+        top: 23rem;
+        width: 70%;
+        height: 14rem;
+        transform: rotate(-30deg);
+
+        @include laptop {
+            top: auto;
+            bottom: 20%;
+            right: 4rem;
+            width: 40rem;
+            height: 30rem;
+        }
+
+        @include desktop {
+            right: auto;
+            left: 55%;
+        }
+
+        img {
+            position: absolute;
+            animation: float infinite ease-in-out;
+        }
+
+        .disc1 {
+            width: 25%;
+            top: 10%;
+            left: 5%;
+            animation-duration: 14s;
+        }
+
+        .disc2 {
+            width: 18%;
+            top: 0;
+            left: 45%;
+            animation-duration: 24s;
+        }
+
+        .disc3 {
+            width: 25%;
+            top: 75%;
+            left: 75%;
+            animation-duration: 18s;
+        }
+
+        .artist1 {
+            width: 30%;
+            top: 30%;
+            left: 40%;
+            animation-duration: 10s;
+        }
+
+        .artist2 {
+            width: 25%;
+            top: 70%;
+            left: 15%;
+            animation-duration: 8s;
+        }
+    }
+
+    .shootingStars {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        transform: rotate(-30deg);
+        z-index: -1;
+
+        img {
+            position: absolute;
+            opacity: 0;
+            animation: star infinite linear;
+        }
+
+        .shootingStar1 {
+            width: .3rem;
+            left: 10%;
+            animation-duration: 4s;
+        }
+
+        .shootingStar2 {
+            width: .25rem;
+            left: 60%;
+            animation-duration: 8s;
+            animation-delay: 2s;
+        }
+
+        .shootingStar3 {
+            width: .2rem;
+            left: 20%;
+            animation-duration: 10s;
+        }
+
+        .shootingStar4 {
+            width: .2rem;
+            left: 70%;
+            animation-duration: 12s;
+            animation-delay: 4s;
+        }
+
+        .shootingStar5 {
+            width: .3rem;
+            left: 90%;
+            animation-duration: 6s;
+            animation-delay: 3s;
+        }
+
+        @include laptop {
+            width: 50%;
+            height: 200%;
+            left: 60%;
+
+            .shootingStar1 { width: .5rem; }
+
+            .shootingStar2 { width: .4rem; }
+
+            .shootingStar3 { width: .3rem; }
+
+            .shootingStar4 { width: .3rem; }
+
+            .shootingStar5 { width: .5rem; }
+        }
+    }
+}

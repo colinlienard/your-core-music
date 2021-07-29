@@ -1,0 +1,78 @@
+$main: #1E7ED7;
+$dark: #17191C;
+$spotify: #1ED760;
+$spotify-dark: #1DB954;
+$blue: #4B53F7;
+$yellow: #FDB448;
+$pink: #EA5163;
+$green: #30DFB5;
+
+@mixin tablet {
+    @media (min-width: 480px) {
+        @content;
+    }
+}
+
+@mixin laptop {
+    @media (min-width: 1024px) {
+        @content;
+    }
+}
+
+@mixin desktop {
+    @media (min-width: 1600px) {
+        @content;
+    }
+}
+
+@mixin title {
+    font-size: 2.2rem;
+    font-weight: 500;
+    line-height: 110%;
+
+    @include laptop {
+        font-size: 3rem;
+    }
+}
+
+@mixin button($color, $secondary) {
+    display: flex;
+    gap: .8rem;
+    align-items: center;
+    font-family: Poppins;
+    color: $color;
+    width: fit-content;
+    padding: .8em 2em;
+    border: 1px solid $color;
+    border-radius: 99rem;
+    transition: .3s ease-in-out;
+
+    &:active {
+        background-color: rgba(white, .01);
+    }
+
+    img, svg {
+        width: 1rem;
+    }
+
+    svg {
+        fill: $color;
+    }
+
+    .green {
+        color: $secondary;
+    }
+}
+
+@mixin radialGradient($color) {
+    width: 36rem;
+    height: 36rem;
+    position: absolute;
+    background: radial-gradient(50% 50% at 50% 50%, rgba($color, .3), transparent);
+    z-index: -1;
+
+    @include laptop {
+        width: 52rem;
+        height: 52rem;
+    }
+}

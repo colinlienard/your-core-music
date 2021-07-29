@@ -1,0 +1,208 @@
+@import "../../styles/mixins.scss";
+
+.musicSection {
+    --backgroundColor: #{$blue};
+    --textColor: white;
+    --spotify: #{$spotify};
+    
+    display: flex;
+    justify-content: center;
+    padding: 2rem 2rem 8rem 2rem;
+    position: relative;
+    overflow-x: clip;
+    color: var(--textColor);
+
+    svg {
+        fill: var(--textColor);
+    }
+
+    @include laptop {
+        padding: 0 0 24rem 0;
+    }
+
+    &.artistsSection {
+        --backgroundColor: #{$blue};
+        --textColor: white;
+        --spotify: #{$spotify};
+
+        .wave {
+            bottom: calc(100% - 10rem - 1px);
+    
+            @include laptop {
+                bottom: calc(100% - 20rem - 1px);
+            }
+        }
+
+        .background {
+            top: 10rem;
+            height: calc(100% - 10rem);
+    
+            @include laptop {
+                top: 20rem;
+                height: calc(100% - 20rem);
+            }
+        }
+    }
+
+    &.tracksSection {
+        --backgroundColor: #{$yellow};
+        --textColor: #1C2854;
+        --spotify: #{white};
+
+        .wave {
+            transform: rotateY(180deg)
+        }
+
+        .gradient2 {
+            @include radialGradient($blue);
+        }
+    }
+
+    &.genresSection {
+        --backgroundColor: #{$pink};
+        --textColor: white;
+    }
+
+    .green {
+        color: var(--spotify);
+    }
+
+    .wave {
+        position: absolute;
+        bottom: calc(100% - 1px);
+        left: 0;
+        width: 100%;
+        height: auto;
+        fill: var(--backgroundColor);
+        z-index: -1;
+    }
+
+    .background {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: var(--backgroundColor);
+        z-index: -1;
+    }
+
+    // .gradient1 {
+    //     top: 20%;
+    //     right: -30%;
+    //     @include radialGradient($pink);
+
+    //     @include laptop {
+    //         top: 5%;
+    //         right: -10%;
+    //     }
+    // }
+
+    // .gradient2 {
+    //     top: 65%;
+    //     left: -40%;
+    //     @include radialGradient($yellow);
+
+    //     @include laptop {
+    //         top: 40%;
+    //         left: 0;
+    //     }
+    // }
+
+    .content {
+        width: 100%;
+        max-width: 64rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        .title {
+            @include title;
+
+            @include laptop {
+                margin-right: auto;
+                position: relative;
+
+                &::before {
+                    content: "";
+                    position: absolute;
+                    top: 50%;
+                    right: calc(100% + 3rem);
+                    width: 8rem;
+                    height: 1px;
+                    background-color: var(--textColor);
+                }
+            }
+        }
+
+        .topMusicContainer {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 2rem;
+
+            @include laptop {
+                flex-direction: row;
+                margin-top: 6rem;
+
+                li {
+                    display: flex;
+                    height: 100%;
+                }
+            }
+
+            .separator {
+                border: none;
+                border-top: 1px solid rgba(white, .1);
+                width: 100%;
+                height: 1px;
+                margin: 2rem 0;
+
+                @include laptop {
+                    border-right: 1px solid rgba(white, .1);
+                    width: 1px;
+                    height: 100%;
+                    margin: 0 4rem;
+                }
+            }
+        }
+
+        .musicContainer {
+            width: 100%;
+            max-width: 48rem;
+            margin-top: 4rem;
+
+            @include laptop {
+                margin-top: 6rem;
+            }
+
+            .separator {
+                border: none;
+                border-top: 1px solid rgba(white, .1);
+                width: 100%;
+                height: 1px;
+                margin: .5rem 0;
+
+                @include laptop {
+                    margin: 1rem 0;
+                }
+            }
+
+        }
+
+        .button {
+            margin: 3rem auto 0 auto;
+            @include button(var(--textColor), var(--spotify));
+
+            img, svg {
+                transition: .3s ease-in-out;
+            }
+
+            &:hover {
+                img, svg {
+                    transform: rotate(90deg) translateY(-.05rem);
+                }
+            }
+        }
+    }
+}

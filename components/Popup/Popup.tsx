@@ -1,4 +1,5 @@
 import { FC, useContext } from "react";
+import Link from "next/link";
 import { LangContext } from "../../lib/contexts/LangContext";
 import { userData } from "../../lib/types";
 import styles from "./Popup.module.scss";
@@ -22,7 +23,7 @@ const Popup: FC<Props> = ({ userData, open, toggle }) => {
                 : null
             }
             <div className={styles.informationsContainer}>
-                <img className={styles.cross} src="images/cross.svg" alt="" onClick={toggle}/>
+                <img className={styles.cross} src="images/svg/cross.svg" alt="" onClick={toggle}/>
                 <div>
                     <p className={styles.label}>{lang.signedIn}</p>
                     <p className={styles.bigInformation}>{userData.display_name}</p>
@@ -37,8 +38,10 @@ const Popup: FC<Props> = ({ userData, open, toggle }) => {
                 </div>
             </div>
             <div className={styles.toolsContainer}>
-                <a className={styles.link + " " + styles.green} href={userData.external_urls.spotify} target="_blank">{lang.profile}</a>
-                <a className={styles.link + " " + styles.red} href="/api/logout">{lang.logout}</a>
+                <a className={`${styles.link} ${styles.green}`} href={userData.external_urls.spotify} target="_blank">{lang.profile}</a>
+                <Link href="/api/logout">
+                    <a className={`${styles.link} ${styles.red}`}>{lang.logout}</a>
+                </Link>
             </div>
         </div>
     )

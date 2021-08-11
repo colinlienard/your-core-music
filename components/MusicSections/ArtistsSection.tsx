@@ -1,29 +1,30 @@
-import { FC, useContext } from "react";
+import { FC, useContext, useState } from "react";
 import MusicItem from "../MusicItems/MusicItem/MusicItem";
 import TopMusicItem from "../MusicItems/TopMusicItem/TopMusicItem";
 import { LangContext } from "../../lib/contexts/LangContext";
+import { MusicListContext } from "../../lib/contexts/MusicListContext";
+import { ArtistContent, ArtistList, TrackList } from "../../lib/types";
 import styles from "./MusicSection.module.scss";
 
 interface Props {
-    artists: { items: ArtistContent[] }
+    timeLimit: string,
+    getData: (url: string) => Promise<ArtistList | TrackList>
 }
 
-interface ArtistContent {
-    external_urls: { spotify: string },
-    images: Image[],
-    name: string,
-    popularity: number,
-    genres: string[]
-}
+type RankingList = {
+    id: string,
+    rank: number
+}[]
 
-interface Image {
-    width: number,
-    height: number,
-    url: string
-}
-
-const ArtistsSection: FC<Props> = ({ artists }) => {
+const ArtistsSection: FC<Props> = ({ timeLimit, getData }) => {
+    const { artistList, dispatchArtistList } = useContext(MusicListContext);
+    // const [artistsRanking, setArtistsRanking] = useState<RankingList>([]);
     const { Stats: lang } = useContext(LangContext);
+
+    const getMore = async () => {
+        const newArtistList = await getData(`https://api.spotify.com/v1/me/top/artists?time_range=${timeLimit}&limit=10&offset=${artistList.length}`);
+        dispatchArtistList({ type: "add", value: newArtistList.items as ArtistContent[] });
+    }
 
     return (
         <section className={`${styles.artistsSection} ${styles.musicSection}`}>
@@ -34,7 +35,9 @@ const ArtistsSection: FC<Props> = ({ artists }) => {
             <div className={styles.content}>
                 <h2 className={styles.title}>{lang.artists}</h2>
                 <ul className={styles.topMusicContainer}>
-                    {artists.items.map((artist, index) => {
+                    {artistList.map((artist, index) => {
+                        // setArtistsRanking((artistsRanking: RankingList) => [...artistsRanking, { id: artist.id, rank: index }]);                        
+
                         if(index < 3) {
                             return (
                                 <li key={index}>
@@ -52,7 +55,7 @@ const ArtistsSection: FC<Props> = ({ artists }) => {
                     })}
                 </ul>
                 <ul className={styles.musicContainer}>
-                    {artists.items.map((artist, index) => {
+                    {artistList.map((artist, index) => {
                         if(index > 2) {
                             return (
                                 <li key={index}>
@@ -63,18 +66,22 @@ const ArtistsSection: FC<Props> = ({ artists }) => {
                                         position={index + 1}
                                         popularity={artist.popularity}
                                     />
-                                    { index < artists.items.length - 1 ? <hr className={styles.separator}/> : null }
+                                    { index < artistList.length - 1 ? <hr className={styles.separator}/> : null }
                                 </li>
                             )
                         }
                     })}
                 </ul>
-                <button className={styles.button}>
-                    <svg width="15" height="15" viewBox="0 0 15 15">
-                        <path d="M6.89941 8.89954L6.89941 14.8995H8.89941V8.89954H14.8994V6.89954L8.89941 6.89954V0.899536L6.89941 0.899536V6.89954H0.899414L0.899414 8.89954H6.89941Z"/>
-                    </svg>
-                    <p>{lang.more}</p>
-                </button>
+                {artistList.length < 40 ?
+                    <button className={styles.button} onClick={getMore}>
+                        <svg width="15" height="15" viewBox="0 0 15 15">
+                            <path d="M6.89941 8.89954L6.89941 14.8995H8.89941V8.89954H14.8994V6.89954L8.89941 6.89954V0.899536L6.89941 0.899536V6.89954H0.899414L0.899414 8.89954H6.89941Z"/>
+                        </svg>
+                        <p>{lang.more}</p>
+                    </button>
+                    :
+                    null
+                }
             </div>
         </section>
     )

@@ -1,16 +1,24 @@
-import { FC, useContext } from "react";
+import { FC, useContext, useEffect, useRef, useState } from "react";
 import MusicItem from "../MusicItems/MusicItem/MusicItem";
 import TopMusicItem from "../MusicItems/TopMusicItem/TopMusicItem";
 import { LangContext } from "../../lib/contexts/LangContext";
-import { TrackContent, ArtistContent, ArtistName } from "../../lib/types";
+import { MusicListContext } from "../../lib/contexts/MusicListContext";
+import { TrackContent, ArtistName } from "../../lib/types";
 import styles from "./MusicSection.module.scss";
 
 interface Props {
-    tracks: { items: TrackContent[] }
+    timeLimit: string,
+    getData: (url: string) => any
 }
 
-const ArtistsSection: FC<Props> = ({ tracks }) => {
+const TracksSection: FC<Props> = ({ timeLimit, getData }) => {
+    const { trackList, dispatchTrackList } = useContext(MusicListContext);
     const { Stats: lang } = useContext(LangContext);
+
+    const getMore = async () => {
+        const newTrackList = await getData(`https://api.spotify.com/v1/me/top/tracks?time_range=${timeLimit}&limit=10&offset=${trackList.length}`);
+        dispatchTrackList({ type: "add", value: newTrackList.items });
+    }
 
     const splitArtists = (artists: ArtistName[]) => {
         if(artists.length === 1)
@@ -37,7 +45,7 @@ const ArtistsSection: FC<Props> = ({ tracks }) => {
             <div className={styles.content}>
                 <h2 className={styles.title}>{lang.tracks}</h2>
                 <ul className={styles.topMusicContainer}>
-                    {tracks.items.map((track, index) => {
+                    {trackList.map((track, index) => {
                         if(index < 3) {
                             return (
                                 <li key={index}>
@@ -56,7 +64,7 @@ const ArtistsSection: FC<Props> = ({ tracks }) => {
                     })}
                 </ul>
                 <ul className={styles.musicContainer}>
-                    {tracks.items.map((track, index) => {
+                    {trackList.map((track, index) => {
                         if(index > 2) {
                             return (
                                 <li key={index}>
@@ -68,21 +76,25 @@ const ArtistsSection: FC<Props> = ({ tracks }) => {
                                         position={index + 1}
                                         artists={splitArtists(track.artists)}
                                     />
-                                    { index < tracks.items.length - 1 ? <hr className={styles.separator}/> : null }
+                                    { index < trackList.length - 1 ? <hr className={styles.separator}/> : null }
                                 </li>
                             )
                         }
                     })}
                 </ul>
-                <button className={styles.button}>
-                    <svg width="15" height="15" viewBox="0 0 15 15">
-                        <path d="M6.89941 8.89954L6.89941 14.8995H8.89941V8.89954H14.8994V6.89954L8.89941 6.89954V0.899536L6.89941 0.899536V6.89954H0.899414L0.899414 8.89954H6.89941Z"/>
-                    </svg>
-                    <p>{lang.more}</p>
-                </button>
+                {trackList.length < 40 ?
+                    <button className={styles.button} onClick={getMore}>
+                        <svg width="15" height="15" viewBox="0 0 15 15">
+                            <path d="M6.89941 8.89954L6.89941 14.8995H8.89941V8.89954H14.8994V6.89954L8.89941 6.89954V0.899536L6.89941 0.899536V6.89954H0.899414L0.899414 8.89954H6.89941Z"/>
+                        </svg>
+                        <p>{lang.more}</p>
+                    </button>
+                    :
+                    null
+                }
             </div>
         </section>
     )
 }
 
-export default ArtistsSection;
+export default TracksSection;

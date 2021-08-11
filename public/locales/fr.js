@@ -7,7 +7,8 @@ export default {
             "le plus 🔥"
         ],
         subhero: "Découvrez vos artistes préférés, vos titres phares et les genres musicaux que vous écoutez le plus.",
-        login: "Se connecter avec"
+        login: "Se connecter avec",
+        loading: "Connexion à Spotify"
     },
     Stats: {
         hero: [

@@ -1,1 +1,41 @@
 @import "../../../styles/mixins.scss";
+
+.GenreItem {
+    display: flex;
+    align-items: center;
+
+    .positionContainer {
+        display: flex;
+        gap: .5rem;
+        align-items: center;
+        padding: 1.5rem 2rem;
+        border-radius: 0 99rem 99rem 0;
+
+        @include laptop {
+            padding: 3rem;
+        }
+
+        p {
+            font-family: Poppins;            
+            margin-left: auto;
+
+            @include laptop {
+                font-size: 1.2rem;
+            }
+        }
+
+        svg {
+            width: .8rem;
+        }
+    }
+
+    .text {
+        margin: 0 2rem 0 1rem;
+        text-transform: capitalize;
+
+        @include laptop {
+            margin: 0 0 0 2rem;
+            font-size: 1.4rem;
+        }
+    }
+}

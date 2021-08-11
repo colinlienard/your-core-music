@@ -7,17 +7,17 @@
     
     display: flex;
     justify-content: center;
-    padding: 2rem 2rem 8rem 2rem;
     position: relative;
     overflow-x: clip;
     color: var(--textColor);
+    padding-bottom: 4rem;
+
+    @include laptop {
+        padding-bottom: 24rem;
+    }
 
     svg {
         fill: var(--textColor);
-    }
-
-    @include laptop {
-        padding: 0 0 24rem 0;
     }
 
     &.artistsSection {
@@ -26,7 +26,7 @@
         --spotify: #{$spotify};
 
         .wave {
-            bottom: calc(100% - 10rem - 1px);
+            bottom: calc(100% - 12rem - 1px);
     
             @include laptop {
                 bottom: calc(100% - 20rem - 1px);
@@ -34,8 +34,8 @@
         }
 
         .background {
-            top: 10rem;
-            height: calc(100% - 10rem);
+            top: 12rem;
+            height: calc(100% - 12rem);
     
             @include laptop {
                 top: 20rem;
@@ -47,24 +47,85 @@
     &.tracksSection {
         --backgroundColor: #{$yellow};
         --textColor: #1C2854;
-        --spotify: #{white};
+        --spotify: #379257;
 
         .wave {
             transform: rotateY(180deg)
-        }
-
-        .gradient2 {
-            @include radialGradient($blue);
         }
     }
 
     &.genresSection {
         --backgroundColor: #{$pink};
         --textColor: white;
-    }
 
-    .green {
-        color: var(--spotify);
+        flex-direction: column;
+        align-items: center;
+
+        .genresContainer {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+
+            @include laptop {
+                gap: 2rem;
+                margin-top: 4rem;
+            }
+
+            li {
+                --genreBackgroundColor: #4B53F7;
+                --genreTextColor: white;
+
+                div {
+                    background-color: var(--genreBackgroundColor);
+                    color: var(--genreTextColor);
+
+                    svg {
+                        fill: var(--genreTextColor);
+                    }
+                }
+                
+                &:nth-of-type(1) {
+                    div {
+                        --genreBackgroundColor: #4B53F7;
+                        --genreTextColor: white;
+                        width: 60vw;
+                    }
+                }
+                
+                &:nth-of-type(2) {
+                    div {
+                        --genreBackgroundColor: #FF9669;
+                        --genreTextColor: #{$dark};
+                        width: 55vw;
+                    }
+                }
+                
+                &:nth-of-type(3) {
+                    div {
+                        --genreBackgroundColor: #CEFFF3;
+                        --genreTextColor: #{$dark};
+                        width: 50vw;
+                    }
+                }
+                
+                &:nth-of-type(4) {
+                    div {
+                        --genreBackgroundColor: #FDB448;
+                        --genreTextColor: #{$dark};
+                        width: 45vw;
+                    }
+                }
+                
+                &:nth-of-type(5) {
+                    div {
+                        --genreBackgroundColor: #40394F;
+                        --genreTextColor: white;
+                        width: 40vw;
+                    }
+                }
+            }
+        }
     }
 
     .wave {
@@ -87,34 +148,13 @@
         z-index: -1;
     }
 
-    // .gradient1 {
-    //     top: 20%;
-    //     right: -30%;
-    //     @include radialGradient($pink);
-
-    //     @include laptop {
-    //         top: 5%;
-    //         right: -10%;
-    //     }
-    // }
-
-    // .gradient2 {
-    //     top: 65%;
-    //     left: -40%;
-    //     @include radialGradient($yellow);
-
-    //     @include laptop {
-    //         top: 40%;
-    //         left: 0;
-    //     }
-    // }
-
     .content {
         width: 100%;
         max-width: 64rem;
         display: flex;
         flex-direction: column;
         align-items: center;
+        padding: 2rem;
 
         .title {
             @include title;
@@ -148,18 +188,24 @@
                 li {
                     display: flex;
                     height: 100%;
+
+                    div a p span {
+                        color: var(--spotify);
+                    }
                 }
             }
 
             .separator {
                 border: none;
-                border-top: 1px solid rgba(white, .1);
+                border-top: 1px solid var(--textColor);
+                opacity: .1;
                 width: 100%;
                 height: 1px;
                 margin: 2rem 0;
 
                 @include laptop {
-                    border-right: 1px solid rgba(white, .1);
+                    border-right: 1px solid var(--textColor);
+                    opacity: .1;
                     width: 1px;
                     height: 100%;
                     margin: 0 4rem;
@@ -176,9 +222,14 @@
                 margin-top: 6rem;
             }
 
+            li div a p span {
+                color: var(--spotify);
+            }
+
             .separator {
                 border: none;
-                border-top: 1px solid rgba(white, .1);
+                border-top: 1px solid var(--textColor);
+                opacity: .1;
                 width: 100%;
                 height: 1px;
                 margin: .5rem 0;
@@ -194,13 +245,15 @@
             margin: 3rem auto 0 auto;
             @include button(var(--textColor), var(--spotify));
 
-            img, svg {
-                transition: .3s ease-in-out;
-            }
-
-            &:hover {
+            @include laptop {
                 img, svg {
-                    transform: rotate(90deg) translateY(-.05rem);
+                    transition: .3s ease-in-out;
+                }
+    
+                &:hover {
+                    img, svg {
+                        transform: rotate(90deg) translateY(-.05rem);
+                    }
                 }
             }
         }

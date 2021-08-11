@@ -8,10 +8,11 @@ import styles from "./NavBar.module.scss";
 interface Props {
     logged: boolean,
     loginUrl?: string,
-    userData?: userData | any
+    userData?: userData,
+    startLoading?: () => void
 }
 
-const NavBar: FC<Props> = ({ logged, loginUrl, userData }) => {
+const NavBar: FC<Props> = ({ logged, loginUrl, userData, startLoading }) => {
     const [popupOpen, setPopupOpen] = useState(false);
     const router = useRouter();
     const { NavBar: lang } = useContext(LangContext);
@@ -25,20 +26,20 @@ const NavBar: FC<Props> = ({ logged, loginUrl, userData }) => {
             <div className={styles.content}>
                 <p className={styles.appName}>Statify</p>
                 <p className={styles.text}>{lang.description}</p>
-                <img className={styles.logo} src="images/spotify_logo.png" alt=""/>
+                <img className={styles.logo} src="images/png/spotify_logo.png" alt=""/>
                 <div className={styles.contentRight}>
                     <button className={styles.language} onClick={changeLang} data-popup={lang.switch}>{lang.current}</button>
                     {logged ?
                         <>
                             <button className={`${styles.loginButton} ${styles.logged}`} onClick={togglePopup}>
-                                <img className={userData.images[0] ? styles.userPP : styles.defaultPP} src={userData.images[0] ? userData.images[0].url : "images/login.svg"} alt=""/>
-                                <p>{userData.display_name}</p>
+                                <img className={(userData as userData).images[0] ? styles.userPP : styles.defaultPP} src={(userData as userData).images[0] ? (userData as userData).images[0].url : "images/svg/login.svg"} alt=""/>
+                                <p>{(userData as userData).display_name}</p>
                             </button>
-                            <Popup userData={userData} open={popupOpen} toggle={togglePopup}/>
+                            <Popup userData={userData as userData} open={popupOpen} toggle={togglePopup}/>
                         </>
                         :
-                        <a className={styles.loginButton} href={loginUrl}>
-                            <img src="images/login.svg" alt=""/>
+                        <a className={styles.loginButton} href={loginUrl} onClick={startLoading}>
+                            <img src="images/svg/login.svg" alt=""/>
                             <p>{lang.login}</p>
                         </a>
                     }

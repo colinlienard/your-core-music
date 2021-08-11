@@ -1,27 +1,81 @@
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { GetServerSideProps } from "next";
-import { FC, useEffect } from "react";
+import { FC, useContext, useEffect, useRef, useState } from "react";
 import NavBar from "../components/NavBar/NavBar";
 import MusicController from "../components/MusicController/MusicController";
 import TopSection from "../components/TopSection/TopSection";
 import ArtistsSection from "../components/MusicSections/ArtistsSection";
 import TracksSection from "../components/MusicSections/TracksSection";
 import GenresSection from "../components/MusicSections/GenresSection";
-import { userData, ArtistContent, TrackContent } from "../lib/types";
+import { MusicListContext } from "../lib/contexts/MusicListContext";
+import { userData, ArtistList, TrackList, ArtistContent, TrackContent } from "../lib/types";
 
 interface Props {
     user: userData,
-    artists: { items: ArtistContent[] },
-    tracks: { items: TrackContent[] }
+    artists: ArtistList,
+    tracks: TrackList
 }
 
 const Stats: FC<Props> = ({ user, artists, tracks }) => {
+    const [accessToken, setAccessToken] = useState("");
+    const { dispatchArtistList, dispatchTrackList } = useContext(MusicListContext);
+    const [timeLimit, setTimeLimit] = useState("short_term");
+    const firstUpdate = useRef(true);
     const router = useRouter();
 
     useEffect(() => {
         router.replace("/stats", undefined, { shallow: true });
+
+        const cookie: string | undefined = document.cookie;
+        if(cookie) {
+            setAccessToken(cookie
+                .split("; ")
+                .find((row) => row.startsWith("accessToken="))!
+                .split("=")[1]
+            );
+        }
+
+        dispatchArtistList({ type: "reset", value: artists.items })
+        dispatchTrackList({ type: "reset", value: tracks.items })
     }, [])
+
+    useEffect(() => {
+        if(firstUpdate.current) {
+            firstUpdate.current = false;
+            return;
+        }
+
+        const getNewArtists = async () => {
+            const newArtistList = await getData(`https://api.spotify.com/v1/me/top/artists?time_range=${timeLimit}&limit=10`);
+            dispatchArtistList({ type: "reset", value: newArtistList.items as ArtistContent[] });
+        }
+
+        const getNewTracks = async () => {
+            const newTrackList = await getData(`https://api.spotify.com/v1/me/top/tracks?time_range=${timeLimit}&limit=10`);
+            dispatchTrackList({ type: "reset", value: newTrackList.items as TrackContent[] });
+        }
+
+        getNewArtists();
+        getNewTracks();
+    }, [timeLimit])
+
+    const getData = async (url: string): Promise<ArtistList | TrackList> => {
+        try {
+            const response = await fetch(url, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${accessToken}`
+                }
+            });
+            
+            return await response.json();
+        } catch(error) {
+            console.error(error);
+            return { items: [] }
+        }
+    }
 
     return (<>
         <Head>
@@ -32,10 +86,10 @@ const Stats: FC<Props> = ({ user, artists, tracks }) => {
         <NavBar logged={true} userData={user}/>
         <main role="main">
             <MusicController tracks={tracks.items}/>
-            <TopSection name={user.display_name}/>
-            <ArtistsSection artists={artists}/>
-            <TracksSection tracks={tracks}/>
-            <GenresSection artists={artists}/>
+            <TopSection name={user.display_name} timeLimit={timeLimit} setTimeLimit={setTimeLimit}/>
+            <ArtistsSection timeLimit={timeLimit} getData={getData}/>
+            <TracksSection timeLimit={timeLimit} getData={getData}/>
+            <GenresSection/>
         </main>
     </>)
 }
@@ -53,8 +107,7 @@ export const getServerSideProps: GetServerSideProps = async ctx => {
             });
             if(response.ok)
                 return await response.json();
-        }
-        catch(error) {
+        } catch(error) {
             console.error(error);
         }
     }
@@ -90,18 +143,15 @@ export const getServerSideProps: GetServerSideProps = async ctx => {
 
                 return getAllData(json.access_token);
             }
-        }
-        catch(error) {
+        } catch(error) {
             console.error(error);
         }
-    }
-
-    else if(ctx.req.cookies.accessToken)
+    } else if(ctx.req.cookies.accessToken)
         return getAllData(ctx.req.cookies.accessToken);
     
-    // else if(ctx.req.cookies.refreshToken) {
-    //     console.log("refresh");
-    // }
+    else if(ctx.req.cookies.refreshToken) {
+        console.log("refresh");
+    }
 
     ctx.res.setHeader("Location", "/");
     ctx.res.statusCode = 302;

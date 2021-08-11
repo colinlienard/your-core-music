@@ -14,8 +14,11 @@ const MusicController: FC<Props> = ({ tracks }) => {
     const [track, setTrack] = useState("");
     const [artist, setArtist] = useState("");
     const [finish, setFinish] = useState(false);
-    const audio: { current: HTMLAudioElement } | any = useRef();
-    const progressBar: { current: HTMLSpanElement } | any = useRef();
+    const [width, setWidth] = useState(0);
+    const [transition, setTransition] = useState(false);
+    const audio: any = useRef<HTMLAudioElement>();
+    const progressBar: any = useRef<HTMLSpanElement>();
+    const container: any = useRef<HTMLDivElement>();
 
     useEffect(() => {
         changeAudio();
@@ -36,6 +39,8 @@ const MusicController: FC<Props> = ({ tracks }) => {
 
         return result;
     }
+    
+    const calcWidth = (element: HTMLDivElement) => setWidth(element.offsetWidth);
 
     const fadeVolumeIn = () => {
         setTimeout(() => {
@@ -55,7 +60,12 @@ const MusicController: FC<Props> = ({ tracks }) => {
         }, 50);
     }
 
-    const setTimeoutFade = () => timeoutFade = setTimeout(fadeVolumeOut, (audio.current.duration - audio.current.currentTime - 2) * 1000);
+    const setTimeoutFade = () => {
+        timeoutFade = setTimeout(() => {
+            fadeVolumeOut();
+            setTransition(true);
+        }, (audio.current.duration - audio.current.currentTime - 1.5) * 1000);
+    }
 
     const changeAudio = async () => {
         if(trackNumber < tracks.length) {
@@ -67,8 +77,12 @@ const MusicController: FC<Props> = ({ tracks }) => {
             audio.current.volume = 0;
             await audio.current.play();
             fadeVolumeIn();
+
+            setTransition(false);
     
             setTimeoutFade();
+
+            calcWidth(container.current);
     
             progressBar.current.style.animationDuration = `${audio.current.duration}s`;
     
@@ -79,34 +93,43 @@ const MusicController: FC<Props> = ({ tracks }) => {
     }
 
     const toggle = () => {
-        if(playing) {
-            audio.current.pause();
-            clearTimeout(timeoutFade);
-            progressBar.current.style.animationPlayState = "paused";
+        if(!transition) {
+            if(playing) {
+                audio.current.pause();
+                clearTimeout(timeoutFade);
+                progressBar.current.style.animationPlayState = "paused";
+            }
+            else {
+                audio.current.play();
+                setTimeoutFade();
+                progressBar.current.style.animationPlayState = "running";
+            }
+    
+            setPlaying(playing => !playing);
         }
-        else {
-            audio.current.play();
-            setTimeoutFade();
-            progressBar.current.style.animationPlayState = "running";
-        }
-
-        setPlaying(playing => !playing);
     }
 
     return (
-        <div className={`${styles.MusicController} ${finish ? styles.finish : null}`} onClick={toggle}>
+        <div className={`${styles.MusicController} ${finish ? styles.finish : ""} ${transition ? styles.transition : ""}`} onClick={toggle} ref={container}>
+            <div className={styles.background} style={{ width: `${width}px` }}/>
             <audio ref={audio} onEnded={changeAudio}/>
             <div className={styles.textContainer}>
                 <p className={styles.track}>{track}</p>
                 <p className={styles.artist}>{artist}</p>
             </div>
-            <div className={styles.iconsContainer}>
+            <div className={`${styles.iconsContainer} ${playing ? styles.playing : styles.notPlaying}`}>
                 <span/>
                 <span/>
                 <span/>
                 <span/>
+                <svg className={styles.play} width="19" height="20" viewBox="0 0 19 20">
+                    <path d="M1.07272 0.278809L18.012 9.98115L0.992889 19.7292L1.07272 0.278809ZM3.05861 3.72111L3.0071 16.2707L13.988 9.98115L3.05861 3.72111Z"/>
+                </svg>
+                <svg className={styles.pause} width="12" height="20" viewBox="0 0 12 20">
+                    <path d="M3 0H0V20H3V0ZM12 0H9V20H12V0Z"/>
+                </svg>
             </div>
-            <span className={styles.progressBar} ref={progressBar}/>
+            <span className={styles.progressBar} ref={progressBar} style={{ width: `${width - 3}px` }}/>
         </div>
     )
 }

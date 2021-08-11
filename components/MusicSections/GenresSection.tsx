@@ -1,16 +1,13 @@
 import { FC, useContext } from "react";
 import { LangContext } from "../../lib/contexts/LangContext";
+import { MusicListContext } from "../../lib/contexts/MusicListContext";
 import GenreItem from "../MusicItems/GenreItem/GenreItem";
 import useGenres from "../../lib/hooks/useGenres";
 import styles from "./MusicSection.module.scss";
-import { ArtistContent } from "../../lib/types";
 
-interface Props {
-    artists: { items: ArtistContent[] }
-}
-
-const GenresSection: FC<Props> = ({ artists }) => {
-    const genres = useGenres(artists.items);
+const GenresSection: FC = () => {
+    const { artistList } = useContext(MusicListContext);
+    const genres = useGenres(artistList);
     const { Stats: lang } = useContext(LangContext);
 
     return (
@@ -22,7 +19,7 @@ const GenresSection: FC<Props> = ({ artists }) => {
             <div className={styles.content}>
                 <h2 className={styles.title}>{lang.genres}</h2>
             </div>
-            <ul>
+            <ul className={styles.genresContainer}>
                 {genres.map((genre, index) => {
                     return <GenreItem key={index} name={genre} position={index + 1}/>
                 })}

@@ -7,7 +7,8 @@ export default {
             "the most 🔥"
         ],
         subhero: "Discover your favorite artists, your top tracks and the music genres you listen to the most.",
-        login: "Log in with"
+        login: "Log in with",
+        loading: "Connection to Spotify"
     },
     Stats: {
         hero: [

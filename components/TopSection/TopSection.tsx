@@ -3,12 +3,19 @@ import { LangContext } from "../../lib/contexts/LangContext";
 import styles from "./TopSection.module.scss";
 
 interface Props {
-    name: string
+    name: string,
+    timeLimit: string,
+    setTimeLimit: (timeLimit: string) => void
 }
 
-const TopSection: FC<Props> = ({ name }) => {
-    const [timeLimit, setTimeLimit] = useState(1);
+const TopSection: FC<Props> = ({ name, timeLimit, setTimeLimit }) => {
     const { Stats: lang } = useContext(LangContext);
+
+    const timeLimitIndex = {
+        1: "short_term",
+        2: "medium_term",
+        3: "long_term"
+    }
 
     return (
         <section className={styles.topSection}>
@@ -17,22 +24,22 @@ const TopSection: FC<Props> = ({ name }) => {
                 <ul className={styles.buttonsContainer}>
                     <li>
                         <button
-                            className={`${styles.button} ${timeLimit === 1 ? null : styles.unselected}`}
-                            onClick={() => setTimeLimit(1)}>
+                            className={`${styles.button} ${timeLimit === timeLimitIndex[1] ? null : styles.unselected}`}
+                            onClick={() => setTimeLimit(timeLimitIndex[1])}>
                             {lang.lastMonth}
                         </button>
                     </li>
                     <li>
                         <button
-                            className={`${styles.button} ${timeLimit === 2 ? null : styles.unselected}`}
-                            onClick={() => setTimeLimit(2)}>
+                            className={`${styles.button} ${timeLimit === timeLimitIndex[2] ? null : styles.unselected}`}
+                            onClick={() => setTimeLimit(timeLimitIndex[2])}>
                             {lang.last6Months}
                         </button>
                     </li>
                     <li>
                         <button
-                            className={`${styles.button} ${timeLimit === 3 ? null : styles.unselected}`}
-                            onClick={() => setTimeLimit(3)}>
+                            className={`${styles.button} ${timeLimit === timeLimitIndex[3] ? null : styles.unselected}`}
+                            onClick={() => setTimeLimit(timeLimitIndex[3])}>
                             {lang.allTime}
                         </button>
                     </li>

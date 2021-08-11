@@ -11,7 +11,12 @@ export interface ArtistContent {
     images: Image[],
     name: string,
     popularity: number,
-    genres: string[]
+    genres: string[],
+    id: string
+}
+
+export interface ArtistList {
+    items: ArtistContent[]
 }
 
 export interface TrackContent {
@@ -19,7 +24,12 @@ export interface TrackContent {
     artists: { name: string }[],
     external_urls: { spotify: string },
     name: string,
-    preview_url: string
+    preview_url: string,
+    id: string
+}
+
+export interface TrackList {
+    items: TrackContent[]
 }
 
 interface Image {

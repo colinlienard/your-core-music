@@ -63,16 +63,3 @@ $green: #30DFB5;
         color: $secondary;
     }
 }
-
-@mixin radialGradient($color) {
-    width: 36rem;
-    height: 36rem;
-    position: absolute;
-    background: radial-gradient(50% 50% at 50% 50%, rgba($color, .3), transparent);
-    z-index: -1;
-
-    @include laptop {
-        width: 52rem;
-        height: 52rem;
-    }
-}

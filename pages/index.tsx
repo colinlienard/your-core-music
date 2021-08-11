@@ -9,7 +9,7 @@ import styles from "../styles/Home.module.scss";
 const Home: FC = () => {
     const [loading, setLoading] = useState(false);
     const { Home: lang } = useContext(LangContext);
-    const loginUrl = `https://accounts.spotify.com/authorize?client_id=${process.env.CLIENT_ID}&response_type=code&redirect_uri=${lang.current === "FR" ? process.env.REDIRECT_URI_FR : process.env.REDIRECT_URI}&scope=user-read-recently-played%20user-top-read%20user-read-email%20user-read-private`;
+    const loginUrl = `https://accounts.spotify.com/authorize?client_id=${process.env.CLIENT_ID}&response_type=code&redirect_uri=${process.env.URL}${lang.current === "FR" ? "/fr" : ""}/stats&scope=user-read-recently-played%20user-top-read%20user-read-email%20user-read-private`;
 
     const startLoading = () => setLoading(true);
 

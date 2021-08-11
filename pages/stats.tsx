@@ -128,7 +128,7 @@ export const getServerSideProps: GetServerSideProps = async ctx => {
 
     if(ctx.query.code) {
         try {
-            const response = await fetch(`http://localhost:3000/api/login?code=${ctx.query.code}&lang=${ctx.locale}`);
+            const response = await fetch(`${process.env.URL}/api/login?code=${ctx.query.code}&lang=${ctx.locale}`);
             if(response.ok) {
                 const json = await response.json();
                 

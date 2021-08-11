@@ -4,7 +4,7 @@ const btoa = (text: string) => Buffer.from(text, "binary").toString("base64");
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
     try {
-        const response = await fetch(`https://accounts.spotify.com/api/token?grant_type=authorization_code&code=${req.query.code}&redirect_uri=${req.query.lang === "fr" ? process.env.REDIRECT_URI_FR : process.env.REDIRECT_URI}`, {
+        const response = await fetch(`https://accounts.spotify.com/api/token?grant_type=authorization_code&code=${req.query.code}&redirect_uri=${process.env.URL}${req.query.lang === "fr" ? "/fr" : ""}/stats`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/x-www-form-urlencoded",

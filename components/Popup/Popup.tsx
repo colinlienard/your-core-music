@@ -38,7 +38,7 @@ const Popup: FC<Props> = ({ userData, open, toggle }) => {
                 </div>
             </div>
             <div className={styles.toolsContainer}>
-                <a className={`${styles.link} ${styles.green}`} href={userData.external_urls.spotify} target="_blank">{lang.profile}</a>
+                <a className={`${styles.link} ${styles.green}`} href={userData.external_urls.spotify} target="_blank" rel="noreferrer">{lang.profile}</a>
                 <Link href="/api/logout">
                     <a className={`${styles.link} ${styles.red}`}>{lang.logout}</a>
                 </Link>

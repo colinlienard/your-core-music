@@ -15,13 +15,16 @@ const MusicController: FC<Props> = ({ tracks }) => {
     const [artist, setArtist] = useState("");
     const [finish, setFinish] = useState(false);
     const [width, setWidth] = useState(0);
-    const [transition, setTransition] = useState(false);
+    const [transition, setTransition] = useState(true);
     const audio: any = useRef<HTMLAudioElement>();
     const progressBar: any = useRef<HTMLSpanElement>();
     const container: any = useRef<HTMLDivElement>();
 
     useEffect(() => {
         changeAudio();
+        setTransition(false);
+
+        return () => clearTimeout(timeoutFade);
     }, [])
 
     const splitArtists = (artists: { name: string }[]) => {

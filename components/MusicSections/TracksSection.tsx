@@ -13,7 +13,22 @@ interface Props {
 
 const TracksSection: FC<Props> = ({ timeLimit, getData }) => {
     const { trackList, dispatchTrackList } = useContext(MusicListContext);
+    const firstUpdate = useRef(true);
     const { Stats: lang } = useContext(LangContext);
+
+    useEffect(() => {
+        if(firstUpdate.current) {
+            firstUpdate.current = false;
+            return;
+        }
+
+        const getNewTracks = async () => {
+            const newTrackList = await getData(`https://api.spotify.com/v1/me/top/tracks?time_range=${timeLimit}&limit=10`);
+            dispatchTrackList({ type: "reset", value: newTrackList.items as TrackContent[] });
+        }
+
+        getNewTracks();
+    }, [timeLimit])
 
     const getMore = async () => {
         const newTrackList = await getData(`https://api.spotify.com/v1/me/top/tracks?time_range=${timeLimit}&limit=10&offset=${trackList.length}`);

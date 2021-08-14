@@ -1,4 +1,4 @@
-export default function useGenres(artists: { genres: string[] }[]) {
+const useGenres = (artists: { genres: string[] }[]) => {
     let object: any = {};
 
     artists.forEach(artist => {
@@ -13,3 +13,5 @@ export default function useGenres(artists: { genres: string[] }[]) {
     
     return result;
 }
+
+export default useGenres;

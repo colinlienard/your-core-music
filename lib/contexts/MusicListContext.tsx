@@ -17,9 +17,14 @@ export const MusicListContext = createContext<MusicList>({
     dispatchTrackList: () => null
 });
 
-const MusicListProvider: FC = ({ children }) => {
-    const [artistList, dispatchArtistList] = useReducer(artistListReducer, []);
-    const [trackList, dispatchTrackList] = useReducer(trackListReducer, []);
+interface Props {
+    artists: ArtistContent[],
+    tracks: TrackContent[]
+}
+
+const MusicListProvider: FC<Props> = ({ artists, tracks, children }) => {
+    const [artistList, dispatchArtistList] = useReducer(artistListReducer, artists);
+    const [trackList, dispatchTrackList] = useReducer(trackListReducer, tracks);
 
     return (
         <MusicListContext.Provider value={{ artistList, dispatchArtistList, trackList, dispatchTrackList }}>

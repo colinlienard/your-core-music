@@ -1,6 +1,7 @@
-import { FC, useContext, useState } from "react";
+import { FC, useContext, useEffect, useRef, useState } from "react";
 import MusicItem from "../MusicItems/MusicItem/MusicItem";
 import TopMusicItem from "../MusicItems/TopMusicItem/TopMusicItem";
+import useRank from "../../lib/hooks/useRank";
 import { LangContext } from "../../lib/contexts/LangContext";
 import { MusicListContext } from "../../lib/contexts/MusicListContext";
 import { ArtistContent, ArtistList, TrackList } from "../../lib/types";
@@ -11,15 +12,25 @@ interface Props {
     getData: (url: string) => Promise<ArtistList | TrackList>
 }
 
-type RankingList = {
-    id: string,
-    rank: number
-}[]
-
 const ArtistsSection: FC<Props> = ({ timeLimit, getData }) => {
     const { artistList, dispatchArtistList } = useContext(MusicListContext);
-    // const [artistsRanking, setArtistsRanking] = useState<RankingList>([]);
+    const [artistsRanking, dispatchArtistsRanking] = useRank(artistList);
+    const firstUpdate = useRef(true);
     const { Stats: lang } = useContext(LangContext);
+
+    useEffect(() => {
+        if(firstUpdate.current) {
+            firstUpdate.current = false;
+            return;
+        }        
+
+        const getNewArtists = async () => {
+            const newArtistList = await getData(`https://api.spotify.com/v1/me/top/artists?time_range=${timeLimit}&limit=10`);
+            dispatchArtistList({ type: "reset", value: newArtistList.items as ArtistContent[] });
+        }
+
+        getNewArtists();
+    }, [timeLimit])
 
     const getMore = async () => {
         const newArtistList = await getData(`https://api.spotify.com/v1/me/top/artists?time_range=${timeLimit}&limit=10&offset=${artistList.length}`);
@@ -36,8 +47,6 @@ const ArtistsSection: FC<Props> = ({ timeLimit, getData }) => {
                 <h2 className={styles.title}>{lang.artists}</h2>
                 <ul className={styles.topMusicContainer}>
                     {artistList.map((artist, index) => {
-                        // setArtistsRanking((artistsRanking: RankingList) => [...artistsRanking, { id: artist.id, rank: index }]);                        
-
                         if(index < 3) {
                             return (
                                 <li key={index}>

@@ -3,13 +3,14 @@ import { GetServerSideProps } from "next";
 import { FC, useContext, useState } from "react";
 import NavBar from "../components/NavBar/NavBar";
 import LoadingScreen from "../components/LoadingScreen/LoadingScreen";
+import ImageBox from "../components/ImageBox/ImageBox";
 import { LangContext } from "../lib/contexts/LangContext";
 import styles from "../styles/Home.module.scss";
 
 const Home: FC = () => {
     const [loading, setLoading] = useState(false);
     const { Home: lang } = useContext(LangContext);
-    const loginUrl = `https://accounts.spotify.com/authorize?client_id=${process.env.CLIENT_ID}&response_type=code&redirect_uri=${process.env.URL}${lang.current === "FR" ? "/fr" : ""}/stats&scope=user-read-recently-played%20user-top-read%20user-read-email%20user-read-private`;
+    const loginUrl = `https://accounts.spotify.com/authorize?client_id=${process.env.NEXT_PUBLIC_CLIENT_ID}&response_type=code&redirect_uri=${process.env.NEXT_PUBLIC_URL}${lang.current === "FR" ? "/fr" : ""}/stats&scope=user-read-recently-played%20user-top-read%20user-read-email%20user-read-private`;
 
     const startLoading = () => setLoading(true);
 
@@ -40,7 +41,7 @@ const Home: FC = () => {
                     <img className={styles.longArrow} src="./images/svg/long-arrow.svg" alt=""/>
                     <div className={styles.radialGradient}/>
                     <div className={styles.favoritesContainer}>
-                        <img className={styles.disc1} src="/images/svg/disc-1.svg" alt=""/>
+                        <ImageBox className={styles.disc1} src="/images/svg/disc-1.svg" alt=""/>
                         <img className={styles.disc2} src="/images/svg/disc-2.svg" alt=""/>
                         <img className={styles.disc3} src="/images/svg/disc-3.svg" alt=""/>
                         <img className={styles.artist1} src="/images/png/the-weeknd.png" alt=""/>

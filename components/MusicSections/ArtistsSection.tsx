@@ -1,4 +1,4 @@
-import { FC, useContext, useEffect, useRef, useState } from "react";
+import { FC, useCallback, useContext, useEffect, useRef, useState } from "react";
 import MusicItem from "../MusicItems/MusicItem/MusicItem";
 import TopMusicItem from "../MusicItems/TopMusicItem/TopMusicItem";
 import useRank from "../../lib/hooks/useRank";
@@ -14,7 +14,7 @@ interface Props {
 
 const ArtistsSection: FC<Props> = ({ timeLimit, getData }) => {
     const { artistList, dispatchArtistList } = useContext(MusicListContext);
-    const [artistsRanking, dispatchArtistsRanking] = useRank(artistList);
+    const [ranking, dispatchRanking] = useRank(artistList);
     const firstUpdate = useRef(true);
     const { Stats: lang } = useContext(LangContext);
 
@@ -48,6 +48,8 @@ const ArtistsSection: FC<Props> = ({ timeLimit, getData }) => {
                 <ul className={styles.topMusicContainer}>
                     {artistList.map((artist, index) => {
                         if(index < 3) {
+                            // dispatchRanking({ type: "artist", id: artist.id, position: index + 1 });
+
                             return (
                                 <li key={index}>
                                     <TopMusicItem
@@ -56,6 +58,7 @@ const ArtistsSection: FC<Props> = ({ timeLimit, getData }) => {
                                         name={artist.name}
                                         position={index + 1}
                                         popularity={artist.popularity}
+                                        rank={1}
                                     />
                                     { index < 2 ? <hr className={styles.separator}/> : null }
                                 </li>

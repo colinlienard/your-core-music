@@ -1,4 +1,5 @@
-import { FC, useContext } from "react";
+import { FC, memo, useContext } from "react";
+import ImageBox from "../../ImageBox/ImageBox";
 import { LangContext } from "../../../lib/contexts/LangContext";
 import styles from "./TopMusicItem.module.scss";
 
@@ -7,16 +8,17 @@ interface Props {
     image: string,
     name: string,
     position: number,
+    rank?: number,
     popularity?: number,
     artists?: string
 }
 
-const TopMusicItem: FC<Props> = ({ url, image, name, position, popularity, artists }) => {
+const TopMusicItem: FC<Props> = memo(({ url, image, name, position, popularity, artists }) => {
     const { MusicItem: lang } = useContext(LangContext);
 
     return (
         <div className={styles.TopMusicItem}>
-            <img className={styles.image} src={image} alt=""/>
+            <ImageBox className={styles.image} src={image} alt=""/>
             <div className={styles.positionContainer}>
                 <p>{`# ${position}`}</p>
                 <svg width="18" height="17" viewBox="0 0 18 17">
@@ -29,10 +31,10 @@ const TopMusicItem: FC<Props> = ({ url, image, name, position, popularity, artis
                 <svg width="19" height="20" viewBox="0 0 19 20">
                     <path d="M1.07272 0.278809L18.012 9.98115L0.992889 19.7292L1.07272 0.278809ZM3.05861 3.72111L3.0071 16.2707L13.988 9.98115L3.05861 3.72111Z"/>
                 </svg>
-                <p>{lang.listen} <span>Spotify</span></p>
+                <p>{lang.listen}</p>
             </a>
         </div>
     )
-}
+})
 
 export default TopMusicItem;

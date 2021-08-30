@@ -39,6 +39,6 @@ export default {
     },
     MusicItem: {
         mainstream: "de popularité",
-        listen: "Écouter sur"
+        listen: "Écouter sur Spotify"
     }
 }

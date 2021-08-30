@@ -4,7 +4,7 @@ const btoa = (text: string) => Buffer.from(text, "binary").toString("base64");
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
     const url = req.query.code ?
-        `https://accounts.spotify.com/api/token?grant_type=authorization_code&code=${req.query.code}&redirect_uri=${process.env.URL}${req.query.lang === "fr" ? "/fr" : ""}/stats`
+        `https://accounts.spotify.com/api/token?grant_type=authorization_code&code=${req.query.code}&redirect_uri=${process.env.NEXT_PUBLIC_URL}${req.query.lang === "fr" ? "/fr" : ""}/stats`
         :
         `https://accounts.spotify.com/api/token?grant_type=refresh_token&refresh_token=${req.query.token}`
     ;
@@ -13,7 +13,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             method: "POST",
             headers: {
                 "Content-Type": "application/x-www-form-urlencoded",
-                "Authorization": `Basic ${btoa(`${process.env.CLIENT_ID}:${process.env.CLIENT_SECRET}`)}`
+                "Authorization": `Basic ${btoa(`${process.env.NEXT_PUBLIC_CLIENT_ID}:${process.env.CLIENT_SECRET}`)}`
             }
         });
         if(response.ok) {

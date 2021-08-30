@@ -3,11 +3,13 @@
 @font-face {
     font-family: Raleway;
     src: url(../public/fonts/Raleway-Regular.ttf), url(../public/fonts/Raleway-Medium.ttf);
+    font-display: swap;
 }
 
 @font-face {
     font-family: Poppins;
     src: url(../public/fonts/Poppins-SemiBold.ttf);
+    font-display: swap;
 }
 
 * {

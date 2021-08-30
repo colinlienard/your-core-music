@@ -7,13 +7,13 @@
     z-index: 999;
     display: flex;
     justify-content: center;
-    padding: 1rem 1rem .5rem 2rem;
+    padding: 1rem 1rem 1rem 2rem;
     border-bottom: 1px solid rgba(white, .1);
     backdrop-filter: blur(2rem);
     background-color: rgba($dark, .02);
 
     @include laptop {
-        padding: 2rem 0 1rem 0;
+        padding: 1.5rem 0 1.5rem 0;
     }
 
     .content {
@@ -33,22 +33,20 @@
 
         .text {
             font-size: .8rem;
-            margin: 0 .2rem 0 .5rem;
+            margin: 0 .3rem 0 .5rem;
 
             @include laptop {
                 font-size: 1rem;
-                margin: 0 .5rem 0 2rem;
+                margin: 0 .5rem 0 1rem;
             }
         }
 
         .logo {
-            height: 1.6rem;
-            transform: translateY(.4rem);
-            
-            @include laptop {
-                height: 2rem;
-                transform: translateY(.5rem);
-            }
+            transform: translateY(.5rem);
+        }
+
+        .icon {
+            transform: translateY(.5rem);
         }
 
         .contentRight {
@@ -105,12 +103,13 @@
                 border: 1px solid transparent;
                 transition: border .3s ease-in-out;
 
-                img {
+                div {
                     display: none;
 
                     @include laptop {
                         display: block;
                         width: 2rem;
+                        height: 2rem;
                         
                         &.userPP {
                             border-radius: 50%;
@@ -121,9 +120,10 @@
                 &.logged {
                     padding: .5rem;
 
-                    img {
+                    div {
                         display: block;
                         width: 2rem;
+                        height: 2rem;
                         
                         &.userPP {
                             border-radius: 50%;

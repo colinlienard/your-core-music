@@ -6,23 +6,25 @@ type RankingList = Array<{
     rank: number
 }>
 
-type ArtistsRankingAction = {
-    type: "artist",
-    value: ArtistContent[]
-}
+type RankingAction = { type: "artist", id: string, position: number } |
+                     { type: "track", id: string, position: number }
 
-const artistsRankingReducer = (state: ArtistContent[], action: ArtistsRankingAction) => {
+const rankingReducer = (state: ArtistContent[] | TrackContent[], action: RankingAction) => {
     switch(action.type) {
         case "artist":
+            console.log(action.id, action.position);
+            
+            return [];
+        case "track":
             return [];
     }
 }
 
-const useRank = (array: ArtistContent[] | TrackContent) => {
-    const [artistsRanking, dispatchArtistsRanking] = useReducer(artistsRankingReducer, []);
+const useRank = (array: ArtistContent[] | TrackContent[]) => {
+    const [ranking, dispatchRanking] = useReducer(rankingReducer, []);
     // setArtistsRanking((artistsRanking: RankingList) => [...artistsRanking, { id: artist.id, rank: index }]);
 
-    return [artistsRanking, dispatchArtistsRanking];
+    return [ranking, dispatchRanking] as const;
 }
 
 export default useRank;

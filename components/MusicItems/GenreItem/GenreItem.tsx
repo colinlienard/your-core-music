@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, memo } from "react";
 import styles from "./GenreItem.module.scss";
 
 interface Props {
@@ -6,7 +6,7 @@ interface Props {
     position: number | any
 }
 
-const GenreItem: FC<Props> = ({ name, position }) => {
+const GenreItem: FC<Props> = memo(({ name, position }) => {
     return (
         <li className={styles.GenreItem}>
             <div className={styles.positionContainer}>
@@ -18,6 +18,6 @@ const GenreItem: FC<Props> = ({ name, position }) => {
             <p className={styles.text}>{name}</p>
         </li>
     )
-}
+})
 
 export default GenreItem;

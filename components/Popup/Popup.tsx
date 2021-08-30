@@ -1,5 +1,6 @@
 import { FC, useContext } from "react";
 import Link from "next/link";
+import ImageBox from "../ImageBox/ImageBox";
 import { LangContext } from "../../lib/contexts/LangContext";
 import { userData } from "../../lib/types";
 import styles from "./Popup.module.scss";
@@ -17,7 +18,7 @@ const Popup: FC<Props> = ({ userData, open, toggle }) => {
         <div className={`${styles.Popup} ${open ? styles.PopupOpen : ""}`}>
             {userData.images[0] ?
                 <div className={styles.profilePicture}>
-                    <img src={userData.images[0].url} alt=""/>
+                    <ImageBox src={userData.images[0].url} alt=""/>
                     <div/>
                 </div>
                 : null
@@ -39,7 +40,7 @@ const Popup: FC<Props> = ({ userData, open, toggle }) => {
             </div>
             <div className={styles.toolsContainer}>
                 <a className={`${styles.link} ${styles.green}`} href={userData.external_urls.spotify} target="_blank" rel="noreferrer">{lang.profile}</a>
-                <Link href="/api/logout">
+                <Link href={"/api/logout"} locale={false}>
                     <a className={`${styles.link} ${styles.red}`}>{lang.logout}</a>
                 </Link>
             </div>

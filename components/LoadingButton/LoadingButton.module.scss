@@ -1,0 +1,35 @@
+@import "../../styles/mixins.scss";
+
+@keyframes loading {
+    0% {
+        transform: rotate(0);
+        clip-path: inset(0 50% 0 0);
+    }
+    50% {
+        clip-path: inset(0 50% 90% 0);
+    }
+    100% {
+        transform: rotate(360deg);
+        clip-path: inset(0 50% 0 0);
+    }
+}
+
+.LoadingButton {
+    @include button(white, var(--spotify));
+
+    &.loading {
+        * {
+            opacity: 0;
+        }
+    }
+
+    .circle {
+        position: absolute;
+        width: 2rem;
+        height: 2rem;
+        border-radius: 50%;
+        border: 1px solid white;
+        opacity: 1;
+        animation: loading 1s linear infinite;
+    }
+}

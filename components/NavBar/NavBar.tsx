@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import { FC, useState, useContext, useEffect, useCallback, memo } from "react";
+import { FC, useState, useContext, useEffect, memo } from "react";
 import Popup from "../Popup/Popup";
 import Dropdown from "../Dropdown/Dropdown";
 import ImageBox from "../ImageBox/ImageBox";
@@ -14,7 +14,7 @@ interface Props {
     startLoading?: () => void
 }
 
-const NavBar: FC<Props> = memo(({ logged, loginUrl, userData, startLoading }) => {
+const NavBar: FC<Props> = ({ logged, loginUrl, userData, startLoading }) => {
     const [popupOpen, setPopupOpen] = useState(false);
     const [onMobile, setOnMobile] = useState(true);
     const router = useRouter();
@@ -40,9 +40,9 @@ const NavBar: FC<Props> = memo(({ logged, loginUrl, userData, startLoading }) =>
                 }
                 <div className={styles.contentRight}>
                     {/* <button className={styles.language} onClick={changeLang} data-popup={lang.switch}>{lang.current}</button> */}
-                    <Dropdown name="Languages" options={[
-                        { name: "English", action: () => changeLang("en")},
-                        { name: "Français", action: () => changeLang("fr")}
+                    <Dropdown options={[
+                        { name: "English", locale: "en", action: () => { if(router.locale !== "en") changeLang("en"); }},
+                        { name: "Français", locale: "fr", action: () => { if(router.locale !== "fr") changeLang("fr"); }}
                     ]}/>
                     {logged ?
                         <>
@@ -62,6 +62,6 @@ const NavBar: FC<Props> = memo(({ logged, loginUrl, userData, startLoading }) =>
             </div>
         </nav>
     )
-})
+}
 
-export default NavBar;
+export default memo(NavBar);

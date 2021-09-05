@@ -2,23 +2,29 @@ import { FC, memo, useContext } from "react";
 import ImageBox from "../../ImageBox/ImageBox";
 import { LangContext } from "../../../lib/contexts/LangContext";
 import styles from "./MusicItem.module.scss";
+import { RankList } from "../../../lib/types";
+import useRankGetter from "../../../lib/hooks/useRankGetter";
 
 interface Props {
     url: string,
     image: string,
     name: string,
-    position: number,
+    rank: number,
+    oldRanks: RankList | null,
+    id: string,
     popularity?: number,
     artists?: string
 }
 
-const TopMusicItem: FC<Props> = memo(({ url, image, name, position, popularity, artists }) => {
+const TopMusicItem: FC<Props> = ({ url, image, name, rank, oldRanks, id, popularity, artists }) => {
+    const oldRank = useRankGetter(id, oldRanks);
     const { MusicItem: lang } = useContext(LangContext);
 
     return (
         <div className={styles.MusicItem}>
             <div className={styles.positionContainer}>
-                <p>{position}</p>
+                <p>{rank}</p>
+                {oldRank ? (oldRank - rank === 0 ? "same" : oldRank - rank > 0 ? `+${oldRank - rank}` : oldRank - rank) : "no data"}
                 <svg width="18" height="17" viewBox="0 0 18 17">
                     <path d="M9.07108 16.2634L0.939347 8.1317L3.06067 6.01038L9.07108 12.0208L15.0815 6.01038L17.2028 8.1317L9.07108 16.2634Z"/>
                 </svg>
@@ -36,6 +42,6 @@ const TopMusicItem: FC<Props> = memo(({ url, image, name, position, popularity, 
             </a>
         </div>
     )
-})
+}
 
-export default TopMusicItem;
+export default memo(TopMusicItem);

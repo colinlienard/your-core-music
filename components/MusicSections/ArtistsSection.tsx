@@ -1,20 +1,23 @@
-import { FC, useCallback, useContext, useEffect, useRef, useState } from "react";
+import { FC, useContext, useEffect, useRef, useState } from "react";
 import MusicItem from "../MusicItems/MusicItem/MusicItem";
 import TopMusicItem from "../MusicItems/TopMusicItem/TopMusicItem";
-import useRank from "../../lib/hooks/useRank";
+import LoadingButton from "../LoadingButton/LoadingButton";
+import useRankSaver from "../../lib/hooks/useRankSaver";
 import { LangContext } from "../../lib/contexts/LangContext";
 import { MusicListContext } from "../../lib/contexts/MusicListContext";
-import { ArtistContent, ArtistList, TrackList } from "../../lib/types";
+import { ArtistContent, ArtistList, RankList, TrackList } from "../../lib/types";
 import styles from "./MusicSection.module.scss";
 
 interface Props {
     timeLimit: string,
-    getData: (url: string) => Promise<ArtistList | TrackList>
+    getData: (url: string) => Promise<ArtistList | TrackList>,
+    artistsRanks: RankList | null
 }
 
-const ArtistsSection: FC<Props> = ({ timeLimit, getData }) => {
+const ArtistsSection: FC<Props> = ({ timeLimit, getData, artistsRanks }) => {
     const { artistList, dispatchArtistList } = useContext(MusicListContext);
-    const [ranking, dispatchRanking] = useRank(artistList);
+    const [ranking, dispatchRanking] = useRankSaver(artistList, "artists");
+    const [buttonLoading, setButtonLoading] = useState(false);
     const firstUpdate = useRef(true);
     const { Stats: lang } = useContext(LangContext);
 
@@ -27,14 +30,18 @@ const ArtistsSection: FC<Props> = ({ timeLimit, getData }) => {
         const getNewArtists = async () => {
             const newArtistList = await getData(`https://api.spotify.com/v1/me/top/artists?time_range=${timeLimit}&limit=10`);
             dispatchArtistList({ type: "reset", value: newArtistList.items as ArtistContent[] });
+            dispatchRanking({ type: "changeTime", value: newArtistList.items, contentType: "artists", timeLimit: timeLimit });
         }
 
         getNewArtists();
     }, [timeLimit])
 
     const getMore = async () => {
+        setButtonLoading(true);
         const newArtistList = await getData(`https://api.spotify.com/v1/me/top/artists?time_range=${timeLimit}&limit=10&offset=${artistList.length}`);
+        setButtonLoading(false);
         dispatchArtistList({ type: "add", value: newArtistList.items as ArtistContent[] });
+        dispatchRanking({ type: "add", value: newArtistList.items, contentType: "artists", timeLimit: timeLimit });
     }
 
     return (
@@ -48,17 +55,16 @@ const ArtistsSection: FC<Props> = ({ timeLimit, getData }) => {
                 <ul className={styles.topMusicContainer}>
                     {artistList.map((artist, index) => {
                         if(index < 3) {
-                            // dispatchRanking({ type: "artist", id: artist.id, position: index + 1 });
-
                             return (
                                 <li key={index}>
                                     <TopMusicItem
                                         url={artist.external_urls.spotify}
                                         image={artist.images[0].url}
                                         name={artist.name}
-                                        position={index + 1}
+                                        rank={index + 1}
+                                        oldRanks={artistsRanks}
+                                        id={artist.id}
                                         popularity={artist.popularity}
-                                        rank={1}
                                     />
                                     { index < 2 ? <hr className={styles.separator}/> : null }
                                 </li>
@@ -75,7 +81,9 @@ const ArtistsSection: FC<Props> = ({ timeLimit, getData }) => {
                                         url={artist.external_urls.spotify}
                                         image={artist.images[2].url}
                                         name={artist.name}
-                                        position={index + 1}
+                                        rank={index + 1}
+                                        oldRanks={artistsRanks}
+                                        id={artist.id}
                                         popularity={artist.popularity}
                                     />
                                     { index < artistList.length - 1 ? <hr className={styles.separator}/> : null }
@@ -85,12 +93,12 @@ const ArtistsSection: FC<Props> = ({ timeLimit, getData }) => {
                     })}
                 </ul>
                 {artistList.length < 40 ?
-                    <button className={styles.button} onClick={getMore}>
+                    <LoadingButton className={styles.button} onClick={getMore} loading={buttonLoading}>
                         <svg width="15" height="15" viewBox="0 0 15 15">
                             <path d="M6.89941 8.89954L6.89941 14.8995H8.89941V8.89954H14.8994V6.89954L8.89941 6.89954V0.899536L6.89941 0.899536V6.89954H0.899414L0.899414 8.89954H6.89941Z"/>
                         </svg>
                         <p>{lang.more}</p>
-                    </button>
+                    </LoadingButton>
                     :
                     null
                 }

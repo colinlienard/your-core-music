@@ -41,3 +41,5 @@ interface Image {
 export interface ArtistName {
     name: string
 }
+
+export type RankList = string[]

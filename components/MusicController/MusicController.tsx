@@ -8,7 +8,7 @@ interface Props {
 
 let timeoutFade: ReturnType<typeof setTimeout> | any = null;
 
-const MusicController: FC<Props> = memo(({ tracks }) => {
+const MusicController: FC<Props> = ({ tracks }) => {
     const [playing, setPlaying] = useState(true);
     const [trackNumber, setTrackNumber] = useState(0);
     const [track, setTrack] = useState("");
@@ -135,6 +135,6 @@ const MusicController: FC<Props> = memo(({ tracks }) => {
             <span className={styles.progressBar} ref={progressBar} style={{ width: `${width - 3}px` }}/>
         </div>
     )
-})
+}
 
-export default MusicController;
+export default memo(MusicController);

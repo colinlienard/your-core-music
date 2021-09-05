@@ -243,7 +243,6 @@
 
         .button {
             margin: 3rem auto 0 auto;
-            @include button(var(--textColor), var(--spotify));
 
             @include laptop {
                 img, svg {

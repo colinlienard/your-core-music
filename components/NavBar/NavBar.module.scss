@@ -54,44 +54,48 @@
             align-items: center;
             margin-left: auto;
 
-            .language {
-                font-family: Poppins;
-                margin-right: 1rem;
-                position: relative;
-                height: 2rem;
-                z-index: 1;
-
-                @include laptop {
-                    margin-right: 3rem;
-
-                    &::before {
-                        content: attr(data-popup);
-                        font-family: Raleway;
-                        font-size: .8rem;
-                        white-space: nowrap;
-                        padding: 1em;
-                        border-radius: .5em;
-                        background-color: darken($dark, 1%);
-                        border: 1px solid rgba(white, .1);
-                        position: absolute;
-                        bottom: -2.5rem;
-                        left: 50%;
-    
-                        opacity: 0;
-                        pointer-events: none;
-                        transform: translate(-50%, -.1rem);
-                        transition: .2s ease-in-out;
-                    }
-    
-                    &:hover {
-                        &::before {
-                            opacity: 1;
-                            pointer-events: all;
-                            transform: translate(-50%, 0);
-                        }
-                    }
-                }
+            @include laptop {
+                gap: 1rem;
             }
+
+            // .language {
+            //     font-family: Poppins;
+            //     margin-right: 1rem;
+            //     position: relative;
+            //     height: 2rem;
+            //     z-index: 1;
+
+            //     @include laptop {
+            //         margin-right: 3rem;
+
+            //         &::before {
+            //             content: attr(data-popup);
+            //             font-family: Raleway;
+            //             font-size: .8rem;
+            //             white-space: nowrap;
+            //             padding: 1em;
+            //             border-radius: .5em;
+            //             background-color: darken($dark, 1%);
+            //             border: 1px solid rgba(white, .1);
+            //             position: absolute;
+            //             bottom: -2.5rem;
+            //             left: 50%;
+    
+            //             opacity: 0;
+            //             pointer-events: none;
+            //             transform: translate(-50%, -.1rem);
+            //             transition: .2s ease-in-out;
+            //         }
+    
+            //         &:hover {
+            //             &::before {
+            //                 opacity: 1;
+            //                 pointer-events: all;
+            //                 transform: translate(-50%, 0);
+            //             }
+            //         }
+            //     }
+            // }
 
             .loginButton {
                 display: flex;

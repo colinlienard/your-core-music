@@ -19,8 +19,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         if(response.ok) {
             const data = await response.json();
             res.status(200).json(data);
-        } else
+        } else {
             res.status(response.status).send(response.statusText);
+        }
     } catch(error) {
         res.status(500).send(error);
     }

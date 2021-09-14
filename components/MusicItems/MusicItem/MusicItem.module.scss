@@ -3,6 +3,12 @@
 .MusicItem {
     display: flex;
     align-items: center;
+    transition: 1s cubic-bezier(.7, 0, .3, 1);
+
+    &.hidden {
+        transform: translateX(-2rem);
+        opacity: 0;
+    }
 
     .positionContainer {
         display: flex;
@@ -10,7 +16,7 @@
         align-items: center;
         margin-right: 1rem;
 
-        p {
+        .number {
             font-family: Poppins;
             font-size: 1rem;
             width: 1rem;
@@ -20,11 +26,6 @@
                 font-size: 1.2rem;
                 width: 1.2rem;
             }
-        }
-
-        svg {
-            width: .8rem;
-            transform: translateY(-.2rem);
         }
     }
 
@@ -62,32 +63,6 @@
             @include laptop {
                 font-size: 1rem;
             }
-        }
-    }
-
-    .link {
-        display: flex;
-        gap: .8rem;
-        font-family: Poppins;
-        margin-left: auto;
-    
-        svg {
-            width: 1rem;
-        }
-
-        p {
-            white-space: nowrap;
-            display: none;
-        }
-
-        @include laptop {
-            p {
-                display: block;
-            }
-        }
-    
-        .green {
-            color: $spotify;
         }
     }
 }

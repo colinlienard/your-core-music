@@ -67,10 +67,14 @@
 
         .buttonIcon {
             margin: auto auto 0 auto;
-            @include button(white, $spotify);
+            @include button(white);
 
             @include laptop {
                 margin: 3rem 0 0 0;
+            }
+
+            .green {
+                color: $spotify;
             }
         }
     }

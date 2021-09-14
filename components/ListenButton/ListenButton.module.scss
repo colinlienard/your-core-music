@@ -1,0 +1,23 @@
+@import "../../styles/mixins.scss";
+
+.ListenButton {
+    display: flex;
+    gap: .8rem;
+    font-family: Poppins;
+    margin-left: auto;
+
+    svg {
+        width: 1rem;
+    }
+
+    p {
+        white-space: nowrap;
+        display: none;
+    }
+
+    @include laptop {
+        p {
+            display: block;
+        }
+    }
+}

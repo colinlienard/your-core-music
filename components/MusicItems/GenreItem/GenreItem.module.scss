@@ -10,12 +10,17 @@
         align-items: center;
         padding: 1.5rem 2rem;
         border-radius: 0 99rem 99rem 0;
+        transition: 2s cubic-bezier(.7, 0, .3, 1);
+
+        &.hidden {
+            transform: translateX(-30rem);
+        }
 
         @include laptop {
             padding: 3rem;
         }
 
-        p {
+        .rank {
             font-family: Poppins;            
             margin-left: auto;
 
@@ -32,6 +37,12 @@
     .text {
         margin: 0 2rem 0 1rem;
         text-transform: capitalize;
+        transition: 1s 1s ease-in-out;
+
+        &.hidden {
+            opacity: 0;
+            transform: translateX(-3rem);
+        }
 
         @include laptop {
             margin: 0 0 0 2rem;

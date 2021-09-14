@@ -1,4 +1,4 @@
-export default {
+const fr = {
     Home: {
         current: "FR",
         hero: [
@@ -25,7 +25,7 @@ export default {
         genres: "Voici vos genres préférés"
     },
     NavBar: {
-        description: "Stats pour",
+        description: "pour",
         current: "FR",
         switch: "Switch to EN",
         login: "Connexion"
@@ -40,5 +40,17 @@ export default {
     MusicItem: {
         mainstream: "de popularité",
         listen: "Écouter sur Spotify"
+    },
+    RankArrow: {
+        new: "Nouveau",
+        same: "Même place"
+    },
+    MusicController: {
+        title: "Voulez-vous écouter vos musiques du moment ?",
+        content: "Pour pouvoir jouer un contenu audio, votre navigateur requiert une action de votre part sur ce site. Choisissez \"Je veux écouter\" pour autoriser ce site a jouer vos musiques préférées.",
+        agree: "Je veux écouter",
+        disagree: "Pas de musique"
     }
 }
+
+export default fr;

@@ -1,14 +1,32 @@
-import { FC, useContext } from "react";
+import { FC, useContext, useEffect, useRef } from "react";
 import { LangContext } from "../../lib/contexts/LangContext";
 import { MusicListContext } from "../../lib/contexts/MusicListContext";
 import GenreItem from "../MusicItems/GenreItem/GenreItem";
 import useGenres from "../../lib/hooks/useGenres";
+import useRankSaver from "../../lib/hooks/useRankSaver";
 import styles from "./MusicSection.module.scss";
+import { RankList } from "../../lib/types";
 
-const GenresSection: FC = () => {
+interface Props {
+    timeLimit: string,
+    genresRanks: RankList | null
+}
+
+const GenresSection: FC<Props> = ({ timeLimit, genresRanks }) => {
     const { artistList } = useContext(MusicListContext);
     const genres = useGenres(artistList);
+    const [ranking, dispatchRanking] = useRankSaver(genres, "genres", timeLimit);
+    const firstUpdate = useRef(true);
     const { Stats: lang } = useContext(LangContext);
+
+    useEffect(() => {
+        if(firstUpdate.current) {
+            firstUpdate.current = false;
+            return;
+        }
+
+        dispatchRanking({ type: "updateGenres", value: genres, timeLimit: timeLimit });
+    }, [artistList])
 
     return (
         <section className={`${styles.genresSection} ${styles.musicSection}`}>
@@ -21,7 +39,7 @@ const GenresSection: FC = () => {
             </div>
             <ul className={styles.genresContainer}>
                 {genres.map((genre, index) => {
-                    return <GenreItem key={index} name={genre} position={index + 1}/>
+                    return <GenreItem key={index} name={genre.id} rank={index + 1} oldRanks={genresRanks}/>
                 })}
             </ul>
         </section>

@@ -6,7 +6,7 @@
     padding: 8rem 2rem 2rem 2rem;
 
     @include laptop {
-        padding: 14rem 0 10rem 0;
+        padding: 16rem 0 8rem 0;
         width: 100%;
     }
 
@@ -38,7 +38,7 @@
             .button {
                 white-space: nowrap;
                 transition: color .3s ease-in-out, border .3s ease-in-out;
-                @include button($main, $spotify);
+                @include button($main);
 
                 &.unselected {
                     color: white;

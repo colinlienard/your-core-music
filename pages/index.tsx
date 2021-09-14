@@ -41,7 +41,7 @@ const Home: FC = () => {
                     <img className={styles.longArrow} src="./images/svg/long-arrow.svg" alt=""/>
                     <div className={styles.radialGradient}/>
                     <div className={styles.favoritesContainer}>
-                        <ImageBox className={styles.disc1} src="/images/svg/disc-1.svg" alt=""/>
+                        <img className={styles.disc1} src="/images/svg/disc-1.svg" alt=""/>
                         <img className={styles.disc2} src="/images/svg/disc-2.svg" alt=""/>
                         <img className={styles.disc3} src="/images/svg/disc-3.svg" alt=""/>
                         <img className={styles.artist1} src="/images/png/the-weeknd.png" alt=""/>
@@ -61,7 +61,7 @@ const Home: FC = () => {
 
 export const getServerSideProps: GetServerSideProps = async ctx => {
     if(ctx.req.cookies.accessToken || ctx.req.cookies.refreshToken) {
-        ctx.res.setHeader("Location", "/stats");
+        ctx.res.setHeader("Location", `/${ctx.locale}/stats`);
         ctx.res.statusCode = 302;
         ctx.res.end();
     }

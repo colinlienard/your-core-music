@@ -35,7 +35,7 @@ $green: #30DFB5;
     }
 }
 
-@mixin button($color, $secondary) {
+@mixin button($color) {
     display: flex;
     gap: .8rem;
     align-items: center;
@@ -46,7 +46,6 @@ $green: #30DFB5;
     padding: .8em 2em;
     border: 1px solid $color;
     border-radius: 99rem;
-    transition: .3s ease-in-out;
 
     &:active {
         background-color: rgba(white, .01);
@@ -60,7 +59,7 @@ $green: #30DFB5;
         fill: $color;
     }
 
-    .green {
-        color: $secondary;
+    span {
+        border-color: $color;
     }
 }

@@ -12,7 +12,7 @@ const TopSection: FC<Props> = ({ name, timeLimit, setTimeLimit }) => {
     const { Stats: lang } = useContext(LangContext);
 
     return (
-        <section className={styles.topSection}>
+        <header className={styles.topSection}>
             <div className={styles.content}>
                 <h1 className={styles.title}>{lang.hero[0] + name + lang.hero[1]}<br/>{lang.hero[2]}</h1>
                 <ul className={styles.buttonsContainer}>
@@ -39,7 +39,7 @@ const TopSection: FC<Props> = ({ name, timeLimit, setTimeLimit }) => {
                     </li>
                 </ul>
             </div>
-        </section>
+        </header>
     )
 }
 

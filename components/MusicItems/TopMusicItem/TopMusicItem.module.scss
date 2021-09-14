@@ -4,6 +4,12 @@
     display: flex;
     flex-direction: column;
     width: 16rem;
+    transition: 1s cubic-bezier(.7, 0, .3, 1);
+
+    &.hidden {
+        transform: translateY(1rem);
+        opacity: 0;
+    }
 
     @include laptop {
         width: 20rem;
@@ -32,11 +38,6 @@
             gap: 1.2rem;
             margin-top: 1.2rem;
         }
-
-        svg {
-            width: .8rem;
-            transform: translateY(-.2rem);
-        }
     }
 
     .title {
@@ -48,22 +49,7 @@
         }
     }
 
-    .link {
-        display: flex;
-        gap: .8rem;
-        font-family: Poppins;
+    a {
         margin: 1.5rem auto 0 auto;
-
-        @include laptop {
-            margin-top: 2rem;
-        }
-    
-        svg {
-            width: 1rem;
-        }
-    
-        .green {
-            color: $spotify;
-        }
     }
 }

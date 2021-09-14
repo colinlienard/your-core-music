@@ -15,8 +15,6 @@
 }
 
 .LoadingButton {
-    @include button(white, var(--spotify));
-
     &.loading {
         * {
             opacity: 0;

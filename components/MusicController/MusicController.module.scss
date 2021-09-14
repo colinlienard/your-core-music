@@ -71,8 +71,9 @@
         transform: scale(.98);
     }
 
-    &.finish {
+    &.hidden {
         opacity: 0;
+        pointer-events: none;
     }
 
     &.transition {
@@ -202,5 +203,9 @@
         border-radius: 0 0 0 .5rem;
         animation: progress infinite linear;
         transition: width .5s ease-in-out;
+
+        &.paused {
+            animation-play-state: paused;
+        }
     }
 }

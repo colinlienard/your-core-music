@@ -16,7 +16,7 @@ interface Props {
 
 const TracksSection: FC<Props> = ({ timeLimit, getData, tracksRanks }) => {
     const { trackList, dispatchTrackList } = useContext(MusicListContext);
-    const [ranking, dispatchRanking] = useRankSaver(trackList, "tracks");
+    const [ranking, dispatchRanking] = useRankSaver(trackList, "tracks", timeLimit);
     const [buttonLoading, setButtonLoading] = useState(false);
     const firstUpdate = useRef(true);
     const { Stats: lang } = useContext(LangContext);
@@ -41,7 +41,7 @@ const TracksSection: FC<Props> = ({ timeLimit, getData, tracksRanks }) => {
         const newTrackList = await getData(`https://api.spotify.com/v1/me/top/tracks?time_range=${timeLimit}&limit=10&offset=${trackList.length}`);
         setButtonLoading(false);
         dispatchTrackList({ type: "add", value: newTrackList.items });
-        dispatchRanking({ type: "add", value: newTrackList.items, contentType: "artists", timeLimit: timeLimit });
+        dispatchRanking({ type: "add", value: newTrackList.items, contentType: "tracks", timeLimit: timeLimit });
     }
 
     const splitArtists = (artists: ArtistName[]) => {

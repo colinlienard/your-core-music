@@ -31,7 +31,7 @@ const NavBar: FC<Props> = ({ logged, loginUrl, userData, startLoading }) => {
     return (
         <nav className={styles.NavBar}>
             <div className={styles.content}>
-                <p className={styles.appName}>Statify</p>
+                <p className={styles.appName}>Hindsight</p>
                 <p className={styles.text}>{lang.description}</p>
                 {onMobile ?
                     <ImageBox className={styles.logo} src="/images/png/spotify_logo.png" alt="" width={100} height={30}/>
@@ -39,7 +39,6 @@ const NavBar: FC<Props> = ({ logged, loginUrl, userData, startLoading }) => {
                     <ImageBox className={styles.icon} src="/images/png/spotify_icon.png" alt="" width={30} height={30}/>
                 }
                 <div className={styles.contentRight}>
-                    {/* <button className={styles.language} onClick={changeLang} data-popup={lang.switch}>{lang.current}</button> */}
                     <Dropdown options={[
                         { name: "English", locale: "en", action: () => { if(router.locale !== "en") changeLang("en"); }},
                         { name: "Français", locale: "fr", action: () => { if(router.locale !== "fr") changeLang("fr"); }}

@@ -89,7 +89,7 @@
                     div {
                         --genreBackgroundColor: #4B53F7;
                         --genreTextColor: white;
-                        width: 60vw;
+                        width: 70vw;
                     }
                 }
                 
@@ -97,7 +97,7 @@
                     div {
                         --genreBackgroundColor: #FF9669;
                         --genreTextColor: #{$dark};
-                        width: 55vw;
+                        width: 60vw;
                     }
                 }
                 
@@ -105,7 +105,7 @@
                     div {
                         --genreBackgroundColor: #CEFFF3;
                         --genreTextColor: #{$dark};
-                        width: 50vw;
+                        width: 52vw;
                     }
                 }
                 
@@ -121,7 +121,7 @@
                     div {
                         --genreBackgroundColor: #40394F;
                         --genreTextColor: white;
-                        width: 40vw;
+                        width: 38vw;
                     }
                 }
             }
@@ -211,6 +211,18 @@
                     margin: 0 4rem;
                 }
             }
+
+            li:nth-of-type(1) div {
+                transition-delay: 0s;
+            }
+
+            li:nth-of-type(2) div {
+                transition-delay: .2s;
+            }
+
+            li:nth-of-type(3) div {
+                transition-delay: .4s;
+            }
         }
 
         .musicContainer {
@@ -243,6 +255,7 @@
 
         .button {
             margin: 3rem auto 0 auto;
+            @include button(var(--textColor));
 
             @include laptop {
                 img, svg {

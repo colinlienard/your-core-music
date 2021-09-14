@@ -1,3 +1,5 @@
+import { GenreList } from "../types";
+
 const useGenres = (artists: { genres: string[] }[]) => {
     let object: any = {};
 
@@ -7,9 +9,15 @@ const useGenres = (artists: { genres: string[] }[]) => {
         });
     });
     
-    const array = Object.keys(object).sort((a, b) => { return object[b] - object[a] });
+    const array = Object.keys(object).sort((a, b) => { return object[b] - object[a] }).splice(0, 5);
 
-    const result = array.splice(0, 5);
+    // const result = array.splice(0, 5);
+
+    let result: GenreList = [];
+    
+    array.forEach(element => {
+        result = [...result, { id: element }];
+    });
     
     return result;
 }

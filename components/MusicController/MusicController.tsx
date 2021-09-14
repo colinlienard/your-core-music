@@ -1,5 +1,7 @@
-import { FC, useState, useEffect, useRef, memo } from "react";
+import { FC, useState, useEffect, useRef, memo, useContext } from "react";
 import { TrackContent } from "../../lib/types";
+import ErrorMessage from "../ErrorMessage/ErrorMessage";
+import { LangContext } from "../../lib/contexts/LangContext";
 import styles from "./MusicController.module.scss";
 
 interface Props {
@@ -9,35 +11,53 @@ interface Props {
 let timeoutFade: ReturnType<typeof setTimeout> | any = null;
 
 const MusicController: FC<Props> = ({ tracks }) => {
-    const [playing, setPlaying] = useState(true);
+    const MAX_VOLUME = .2;
+    const [playing, setPlaying] = useState(false);
     const [trackNumber, setTrackNumber] = useState(0);
     const [track, setTrack] = useState("");
     const [artist, setArtist] = useState("");
-    const [finish, setFinish] = useState(false);
+    const [hidden, setHidden] = useState(true);
     const [width, setWidth] = useState(0);
+    const [displayError, setDisplayError] = useState(false);
     const [transition, setTransition] = useState(true);
     const audio: any = useRef<HTMLAudioElement>();
     const progressBar: any = useRef<HTMLSpanElement>();
     const container: any = useRef<HTMLDivElement>();
+    const { MusicController: lang } = useContext(LangContext);
 
     useEffect(() => {
-        changeAudio();
-        setTransition(false);
+        audio.current.volume = 0;
+        audio.current.src = tracks[0].preview_url;
+        audio.current.play().then(() => {
+            startPlaying();
+        }).catch(() => {
+            setDisplayError(true);
+        })
 
         return () => clearTimeout(timeoutFade);
     }, [])
 
+    const startPlaying = () => {
+        changeAudio();
+        setPlaying(true);
+        setTransition(false);
+        setHidden(false);
+        setDisplayError(false);
+    }
+
     const splitArtists = (artists: { name: string }[]) => {
-        if(artists.length === 1)
+        if(artists.length === 1) {
             return artists[0].name;
+        }
         
         let result = "";
 
         artists.forEach(artist => {
-            if(result.length === 0)
+            if(result.length === 0) {
                 result = artist.name;
-            else
+            } else {
                 result = `${result}, ${artist.name}`;
+            }
         });
 
         return result;
@@ -47,7 +67,7 @@ const MusicController: FC<Props> = ({ tracks }) => {
 
     const fadeVolumeIn = () => {
         setTimeout(() => {
-            if(audio.current.volume < .2) {
+            if(audio.current.volume < MAX_VOLUME) {
                 audio.current.volume = Math.min(1, audio.current.volume + 0.01);
                 fadeVolumeIn();
             }
@@ -74,11 +94,13 @@ const MusicController: FC<Props> = ({ tracks }) => {
         if(trackNumber < tracks.length) {
             setTrack(tracks[trackNumber].name);
             setArtist(splitArtists(tracks[trackNumber].artists));
-    
+            
             await audio.current.pause();
-            audio.current.src =  tracks[trackNumber].preview_url;
+            setPlaying(false);
+            audio.current.src = tracks[trackNumber].preview_url;
             audio.current.volume = 0;
             await audio.current.play();
+            setPlaying(true);
             fadeVolumeIn();
 
             setTransition(false);
@@ -90,9 +112,9 @@ const MusicController: FC<Props> = ({ tracks }) => {
             progressBar.current.style.animationDuration = `${audio.current.duration}s`;
     
             setTrackNumber(trackNumber => trackNumber + 1);
+        } else {
+            setHidden(true);
         }
-        else
-            setFinish(true);
     }
 
     const toggle = () => {
@@ -100,22 +122,19 @@ const MusicController: FC<Props> = ({ tracks }) => {
             if(playing) {
                 audio.current.pause();
                 clearTimeout(timeoutFade);
-                progressBar.current.style.animationPlayState = "paused";
-            }
-            else {
+            } else {
                 audio.current.play();
                 setTimeoutFade();
-                progressBar.current.style.animationPlayState = "running";
             }
     
             setPlaying(playing => !playing);
         }
     }
-
-    return (
-        <div className={`${styles.MusicController} ${finish ? styles.finish : ""} ${transition ? styles.transition : ""}`} onClick={toggle} ref={container}>
-            <div className={styles.background} style={{ width: `${width}px` }}/>
+    
+    return (<>
+        <div className={`${styles.MusicController} ${hidden ? styles.hidden : ""} ${transition ? styles.transition : ""}`} onClick={toggle} ref={container}>
             <audio ref={audio} onEnded={changeAudio}/>
+            <div className={styles.background} style={{ width: `${width}px` }}/>
             <div className={styles.textContainer}>
                 <p className={styles.track}>{track}</p>
                 <p className={styles.artist}>{artist}</p>
@@ -132,9 +151,16 @@ const MusicController: FC<Props> = ({ tracks }) => {
                     <path d="M3 0H0V20H3V0ZM12 0H9V20H12V0Z"/>
                 </svg>
             </div>
-            <span className={styles.progressBar} ref={progressBar} style={{ width: `${width - 3}px` }}/>
+            <span className={`${styles.progressBar} ${!playing ? styles.paused : null}`} ref={progressBar} style={{ width: `${width - 3}px` }}/>
         </div>
-    )
+        <ErrorMessage
+            title={lang.title}
+            content={lang.content}
+            success={{ message: lang.agree, action: startPlaying }}
+            fail={{ message: lang.disagree,  action:() => setDisplayError(false) }}
+            visible={displayError}
+        />
+    </>)
 }
 
 export default memo(MusicController);

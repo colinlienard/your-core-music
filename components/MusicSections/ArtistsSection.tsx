@@ -16,7 +16,7 @@ interface Props {
 
 const ArtistsSection: FC<Props> = ({ timeLimit, getData, artistsRanks }) => {
     const { artistList, dispatchArtistList } = useContext(MusicListContext);
-    const [ranking, dispatchRanking] = useRankSaver(artistList, "artists");
+    const [ranking, dispatchRanking] = useRankSaver(artistList, "artists", timeLimit);
     const [buttonLoading, setButtonLoading] = useState(false);
     const firstUpdate = useRef(true);
     const { Stats: lang } = useContext(LangContext);

@@ -42,4 +42,6 @@ export interface ArtistName {
     name: string
 }
 
+export type GenreList = { id: string }[]
+
 export type RankList = string[]

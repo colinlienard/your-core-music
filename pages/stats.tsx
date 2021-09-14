@@ -10,6 +10,7 @@ import TracksSection from "../components/MusicSections/TracksSection";
 import GenresSection from "../components/MusicSections/GenresSection";
 import MusicListProvider from "../lib/contexts/MusicListContext";
 import { userData, ArtistList, TrackList, RankList } from "../lib/types";
+import ScrollUpButton from "../components/ScrollUpButton/ScrollUpButton";
 
 interface RankListTimeLimit {
     short_term: RankList,
@@ -22,13 +23,14 @@ interface Props {
     artists: ArtistList,
     tracks: TrackList,
     artistsRanks: RankListTimeLimit,
-    tracksRanks: RankListTimeLimit
+    tracksRanks: RankListTimeLimit,
+    genresRanks: RankListTimeLimit
 }
 
-const Stats: FC<Props> = ({ user, artists, tracks, artistsRanks, tracksRanks }) => {
+const Stats: FC<Props> = ({ user, artists, tracks, artistsRanks, tracksRanks, genresRanks }) => {
     const [accessToken, setAccessToken] = useState("");
     const [timeLimit, setTimeLimit] = useState<"short_term" | "medium_term" | "long_term">("short_term");
-    const [musicAllowed, setMusicAllowed] = useState(false);
+    const [musicAllowed, setMusicAllowed] = useState(true);
     const router = useRouter();
 
     useEffect(() => {
@@ -68,19 +70,20 @@ const Stats: FC<Props> = ({ user, artists, tracks, artistsRanks, tracksRanks }) 
             <link rel="icon" href="/favicon.ico" />
         </Head>
         <NavBar logged userData={user}/>
+        {musicAllowed ?
+            <MusicController tracks={tracks.items}/>
+            :
+            null
+        }
+        <TopSection name={user.display_name} timeLimit={timeLimit} setTimeLimit={setTimeLimit}/>
         <main role="main">
-            {musicAllowed ?
-                <MusicController tracks={tracks.items}/>
-                :
-                null
-            }
-            <TopSection name={user.display_name} timeLimit={timeLimit} setTimeLimit={setTimeLimit}/>
             <MusicListProvider artists={artists.items} tracks={tracks.items}>
                 <ArtistsSection timeLimit={timeLimit} getData={getData} artistsRanks={artistsRanks ? artistsRanks[timeLimit] : null}/>
                 <TracksSection timeLimit={timeLimit} getData={getData} tracksRanks={tracksRanks ? tracksRanks[timeLimit] : null}/>
-                <GenresSection/>
+                <GenresSection timeLimit={timeLimit} genresRanks={genresRanks ? genresRanks[timeLimit] : null}/>
             </MusicListProvider>
         </main>
+        <ScrollUpButton/>
     </>)
 }
 
@@ -97,7 +100,7 @@ export const getServerSideProps: GetServerSideProps = async ctx => {
                 
                 ctx.res.setHeader("Set-Cookie", [
                     `accessToken=${json.access_token}; path=/; expires=${date.toUTCString()};`,
-                    `refreshToken=${json.refresh_token}; path=/;`
+                    json.refresh_token ? `refreshToken=${json.refresh_token}; path=/; expires=Tue, 19 Jan 2038 04:14:07 GMT` : ""
                 ]);
                 ctx.res.statusCode = 200;
 
@@ -147,6 +150,11 @@ export const getServerSideProps: GetServerSideProps = async ctx => {
             medium_term: ctx.req.cookies.tracksRanks_medium_term ? JSON.parse(ctx.req.cookies.tracksRanks_medium_term) : null,
             long_term: ctx.req.cookies.tracksRanks_long_term ? JSON.parse(ctx.req.cookies.tracksRanks_long_term) : null
         }
+        const genresRanks = {
+            short_term: ctx.req.cookies.genresRanks_short_term ? JSON.parse(ctx.req.cookies.genresRanks_short_term) : null,
+            medium_term: ctx.req.cookies.genresRanks_medium_term ? JSON.parse(ctx.req.cookies.genresRanks_medium_term) : null,
+            long_term: ctx.req.cookies.genresRanks_long_term ? JSON.parse(ctx.req.cookies.genresRanks_long_term) : null
+        }
 
         return {
             props: {
@@ -154,7 +162,8 @@ export const getServerSideProps: GetServerSideProps = async ctx => {
                 artists,
                 tracks,
                 artistsRanks,
-                tracksRanks
+                tracksRanks,
+                genresRanks
             }
         }
     }

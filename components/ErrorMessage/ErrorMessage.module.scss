@@ -10,14 +10,14 @@
     border-radius: .5rem;
     box-shadow: 0 2rem 2rem rgba(black, .15);
     z-index: 999;
-    transition: .2s ease-in;
+    transition: 1s cubic-bezier(.7, 0, .3, 1);
 
     @include laptop {
         width: 36rem;
     }
 
     &.hidden {
-        opacity: 0;
+        transform: translateY(calc(100% + 2rem));
         pointer-events: none;
     }
 

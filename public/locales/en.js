@@ -22,7 +22,13 @@ const en = {
         artists: "Here are your favorite artists",
         more: "Show more",
         tracks: "Here are your favorite tracks",
-        genres: "Here are your favorite genres"
+        genres: "Here are your favorite genres",
+        recommendations: {
+            title: "Discover !",
+            calm: "Calm music",
+            energetic: "Energetic music",
+            dancing: "Dancing music"
+        }
     },
     NavBar: {
         description: "for",

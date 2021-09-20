@@ -9,8 +9,9 @@ import ArtistsSection from "../components/MusicSections/ArtistsSection";
 import TracksSection from "../components/MusicSections/TracksSection";
 import GenresSection from "../components/MusicSections/GenresSection";
 import MusicListProvider from "../lib/contexts/MusicListContext";
-import { userData, ArtistList, TrackList, RankList } from "../lib/types";
+import { userData, ArtistList, TrackList, RankList, TrackContent, Recommendations, allRecommendations } from "../lib/types";
 import ScrollUpButton from "../components/ScrollUpButton/ScrollUpButton";
+import RecommendationsSection from "../components/MusicSections/RecommendationsSection";
 
 interface RankListTimeLimit {
     short_term: RankList,
@@ -19,31 +20,40 @@ interface RankListTimeLimit {
 }
 
 interface Props {
+    accessToken: string,
     user: userData,
     artists: ArtistList,
     tracks: TrackList,
     artistsRanks: RankListTimeLimit,
     tracksRanks: RankListTimeLimit,
-    genresRanks: RankListTimeLimit
+    genresRanks: RankListTimeLimit,
+    allRecommendations: allRecommendations
 }
 
-const Stats: FC<Props> = ({ user, artists, tracks, artistsRanks, tracksRanks, genresRanks }) => {
-    const [accessToken, setAccessToken] = useState("");
+const Stats: FC<Props> = ({ accessToken, user, artists, tracks, artistsRanks, tracksRanks, genresRanks, allRecommendations }) => {
+    // const [accessToken, setAccessToken] = useState("");
     const [timeLimit, setTimeLimit] = useState<"short_term" | "medium_term" | "long_term">("short_term");
     const [musicAllowed, setMusicAllowed] = useState(true);
     const router = useRouter();
 
     useEffect(() => {
+        // console.log(allRecommendations);
+        // allRecommendations.calm.tracks.forEach((track) => {
+        //     console.log(track.name, ",", track.artists[0].name);
+        // });
+        
         router.replace("/stats", undefined, { shallow: true });
 
-        const cookie: string | undefined = document.cookie;
-        if(cookie) {
-            setAccessToken(cookie
-                .split("; ")
-                .find((row) => row.startsWith("accessToken="))!
-                .split("=")[1]
-            );
-        }
+        // const cookie: string | undefined = document.cookie;
+        // if(cookie) {
+        //     let newAccessToken = cookie
+        //         .split("; ")
+        //         .find((row) => row.startsWith("accessToken="))!
+        //         .split("=")[1]
+        //     ;
+
+        //     setAccessToken(newAccessToken);
+        // }
     }, [])
 
     const getData = async (url: string): Promise<ArtistList | TrackList> => {
@@ -76,12 +86,13 @@ const Stats: FC<Props> = ({ user, artists, tracks, artistsRanks, tracksRanks, ge
             null
         }
         <TopSection name={user.display_name} timeLimit={timeLimit} setTimeLimit={setTimeLimit}/>
-        <main role="main">
+        <main>
             <MusicListProvider artists={artists.items} tracks={tracks.items}>
                 <ArtistsSection timeLimit={timeLimit} getData={getData} artistsRanks={artistsRanks ? artistsRanks[timeLimit] : null}/>
                 <TracksSection timeLimit={timeLimit} getData={getData} tracksRanks={tracksRanks ? tracksRanks[timeLimit] : null}/>
                 <GenresSection timeLimit={timeLimit} genresRanks={genresRanks ? genresRanks[timeLimit] : null}/>
             </MusicListProvider>
+            <RecommendationsSection data={allRecommendations}/>
         </main>
         <ScrollUpButton/>
     </>)
@@ -139,7 +150,6 @@ export const getServerSideProps: GetServerSideProps = async ctx => {
         const user = await getData("https://api.spotify.com/v1/me", accessToken);
         const artists = await getData("https://api.spotify.com/v1/me/top/artists?time_range=short_term&limit=10", accessToken);
         const tracks = await getData("https://api.spotify.com/v1/me/top/tracks?time_range=short_term&limit=10", accessToken);
-
         const artistsRanks = {
             short_term: ctx.req.cookies.artistsRanks_short_term ? JSON.parse(ctx.req.cookies.artistsRanks_short_term) : null,
             medium_term: ctx.req.cookies.artistsRanks_medium_term ? JSON.parse(ctx.req.cookies.artistsRanks_medium_term) : null,
@@ -155,15 +165,22 @@ export const getServerSideProps: GetServerSideProps = async ctx => {
             medium_term: ctx.req.cookies.genresRanks_medium_term ? JSON.parse(ctx.req.cookies.genresRanks_medium_term) : null,
             long_term: ctx.req.cookies.genresRanks_long_term ? JSON.parse(ctx.req.cookies.genresRanks_long_term) : null
         }
+        const allRecommendations = {
+            calm: await getData("https://api.spotify.com/v1/recommendations?seed_artists=1Xyo4u8uXC1ZmMpatF05PJ,0HdLXCWPtmK9wgd7CyNuj3,0zhMujl1yB8pkB023Qm4Y2,6PuoYFHWSuzbr45sVWZDuS,09mEdoA6zrmBPgTEN5qXmN&target_energy=0&limit=10", accessToken),
+            energetic: await getData("https://api.spotify.com/v1/recommendations?seed_artists=1Xyo4u8uXC1ZmMpatF05PJ,0HdLXCWPtmK9wgd7CyNuj3,0zhMujl1yB8pkB023Qm4Y2,6PuoYFHWSuzbr45sVWZDuS,09mEdoA6zrmBPgTEN5qXmN&target_energy=1&limit=10", accessToken),
+            dancing: await getData("https://api.spotify.com/v1/recommendations?seed_artists=1Xyo4u8uXC1ZmMpatF05PJ,0HdLXCWPtmK9wgd7CyNuj3,0zhMujl1yB8pkB023Qm4Y2,6PuoYFHWSuzbr45sVWZDuS,09mEdoA6zrmBPgTEN5qXmN&target_danceability=1&limit=10", accessToken)
+        }
 
         return {
             props: {
+                accessToken,
                 user,
                 artists,
                 tracks,
                 artistsRanks,
                 tracksRanks,
-                genresRanks
+                genresRanks,
+                allRecommendations
             }
         }
     }

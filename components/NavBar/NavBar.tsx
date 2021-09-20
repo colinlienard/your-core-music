@@ -24,8 +24,6 @@ const NavBar: FC<Props> = ({ logged, loginUrl, userData, startLoading }) => {
 
     const togglePopup = () => setPopupOpen(popupOpen => !popupOpen);
 
-    // const changeLang = () => router.push(router.pathname, router.pathname, { locale: lang.current === "FR" ? "en" : "fr" });
-
     const changeLang = (locale: string) => router.push(router.pathname, router.pathname, { locale });
 
     return (
@@ -45,10 +43,10 @@ const NavBar: FC<Props> = ({ logged, loginUrl, userData, startLoading }) => {
                     ]}/>
                     {logged ?
                         <>
-                            <button className={`${styles.loginButton} ${styles.logged}`} onClick={togglePopup}>
+                            <div className={`${styles.loginButton} ${styles.logged}`} onClick={togglePopup}>
                                 <ImageBox className={(userData as userData).images[0] ? styles.userPP : styles.defaultPP} src={(userData as userData).images[0] ? (userData as userData).images[0].url : "images/svg/login.svg"} alt=""/>
                                 <p>{(userData as userData).display_name}</p>
-                            </button>
+                            </div>
                             <Popup userData={userData as userData} open={popupOpen} toggle={togglePopup}/>
                         </>
                         :

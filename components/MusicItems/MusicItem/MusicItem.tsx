@@ -36,7 +36,7 @@ const TopMusicItem: FC<Props> = ({ url, image, name, rank, oldRanks, id, popular
                 <h3 className={styles.title}>{name}</h3>
             <p className={styles.subtitle}>{popularity ? `${popularity}% ${lang.mainstream}` : artists}</p>
             </div>
-            <ListenButton text={lang.listen} url={url}/>
+            <ListenButton text={lang.listen} url={url} getSmallOnMobile/>
         </div>
     )
 }

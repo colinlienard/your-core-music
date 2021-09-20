@@ -21,9 +21,9 @@ const Dropdown: FC<Props> = ({ options }) => {
 
     return (
         <div className={styles.Dropdown}>
-            <button className={styles.button} onClick={toggleMenu}>
+            <div className={styles.button} onClick={toggleMenu}>
                 <ImageBox className={styles.flag} src={`/images/png/${router.locale}.png`} alt="" width={30} height={20}/>
-            </button>
+            </div>
             <ul className={`${styles.menu} ${open ? styles.open : null}`}>
                 {options.map((option, index) => {
                     return (

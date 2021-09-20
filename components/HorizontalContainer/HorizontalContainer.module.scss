@@ -1,0 +1,16 @@
+@import "../../styles/mixins.scss";
+
+.HorizontalContainer {
+    width: 100vw;
+    overflow-x: scroll;
+
+    @include laptop {
+        overflow-x: visible;
+    }
+
+    ul {
+        display: flex;
+        width: fit-content;
+        transition: transform .5s ease-in-out;
+    }
+}

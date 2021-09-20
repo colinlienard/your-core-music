@@ -12,7 +12,7 @@ const RankArrow: FC<Props> = ({ evolution }) => {
     const [popupVisible, setPopupVisible] = useState(false);
     const [popupPosition, setPopupPosition] = useState({ x: 0, y: 0 });
 
-    const handlerMouseEvent = (event: MouseEvent<HTMLDivElement>) => {
+    const handlerMouseEvent = (event: MouseEvent<HTMLElement>) => {
         switch(event.type) {
             case "mouseenter":
                 setPopupVisible(true);

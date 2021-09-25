@@ -23,12 +23,12 @@
     }
 }
 
-.topSection {
+.header {
     height: clamp(44rem, 100vh, 46rem);
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 6rem 2rem 2rem 2rem;
+    padding: 7rem 2rem 2rem 2rem;
     overflow: hidden;
     position: relative;
 
@@ -58,7 +58,7 @@
 
         .subhero {
             max-width: 90%;
-            margin-top: 2rem;
+            margin-top: 1rem;
 
             @include laptop {
                 max-width: 24rem;
@@ -103,7 +103,7 @@
 
     .favoritesContainer {
         position: absolute;
-        top: 23rem;
+        top: 21rem;
         width: 70%;
         height: 14rem;
         transform: rotate(-30deg);
@@ -225,5 +225,183 @@
 
             .shootingStar5 { width: .5rem; }
         }
+    }
+}
+
+.section1 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 4rem;
+
+    .content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        max-width: 64rem;
+        height: 100%;
+
+        @include laptop {
+            flex-direction: row;
+        }
+
+        .imageContainer {
+            width: 100%;
+            position: relative;
+            display: flex;
+
+            .mainImage {
+                width: 80%;
+                margin: 4rem auto 0 auto;
+
+                @include laptop {
+                    width: 100%;
+                    margin: 0;
+                }
+            }
+
+            .shootingStar1, .shootingStar2, .shootingStar3 {
+                position: absolute;
+                animation: float infinite ease-in-out;
+            }
+
+            .shootingStar1 {
+                width: .15rem;
+                top: 6rem;
+                left: 1.5rem;
+                z-index: -1;
+                animation-duration: 10s;
+            }
+
+            .shootingStar2 {
+                width: .3rem;
+                top: 2rem;
+                left: 20%;
+                z-index: -1;
+                animation-duration: 8s;
+            }
+
+            .shootingStar3 {
+                width: .3rem;
+                top: 7rem;
+                left: 40%;
+                animation-duration: 6s;
+            }
+        }
+
+        .textContainer {
+            padding: 2rem;
+
+            @include laptop {
+                width: 100%;
+                padding: 0;
+                text-align: right;
+            }
+
+            .title {
+                margin: 1rem 0;
+                @include title(true);
+            }
+        }
+    }
+}
+
+.section2 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 4rem;
+
+    .content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        max-width: 64rem;
+        height: 100%;
+
+        @include laptop {
+            flex-direction: row-reverse;
+        }
+
+        .imageContainer {
+            width: calc(100vw - 4rem);
+            height: calc(100vw - 4rem);
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            @include laptop {
+                width: 100%;
+                max-width: 28rem;
+                height: 28rem;
+                margin-left: 4rem;
+            }
+            
+            .circle1, .circle2, .circle3, .circle4 {
+                position: absolute;
+                border-radius: 50%;
+                border: solid $main;
+            }
+
+            .circle1 {
+                width: 100%;
+                height: 100%;
+                border-width: 1px;
+            }
+
+            .circle2 {
+                width: 60%;
+                height: 60%;
+                border-width: 2px;
+            }
+
+            .circle3 {
+                width: 35%;
+                height: 35%;
+                border-width: 3px;
+            }
+
+            .circle4 {
+                width: 15%;
+                height: 15%;
+                border-width: 4px;
+            }
+        }
+
+        .textContainer {
+            width: 100%;
+            padding: 2rem;
+
+            @include laptop {
+                padding: 0;
+            }
+
+            .title {
+                margin: 1rem 0;
+                @include title(true);
+            }
+        }
+    }
+}
+
+.section3 {
+    margin: 2rem 0;
+    padding: 2rem;
+
+    .title {
+        margin-bottom: .5rem;
+        max-width: 64rem;
+        @include title(true);
+
+        a {
+            text-decoration: underline;
+        }
+    }
+
+    .subtitle {
+        max-width: 64rem;
     }
 }

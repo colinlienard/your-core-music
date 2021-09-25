@@ -25,13 +25,21 @@ $purple: #7A14DF;
     }
 }
 
-@mixin title {
+@mixin title($smaller: false) {
     font-size: 2.2rem;
     font-weight: 500;
     line-height: 110%;
 
     @include laptop {
         font-size: 3rem;
+    }
+
+    @if $smaller {
+        font-size: 1.8rem;
+
+        @include laptop {
+            font-size: 2.5rem;
+        }
     }
 }
 

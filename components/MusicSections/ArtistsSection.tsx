@@ -1,7 +1,7 @@
 import { FC, useContext, useEffect, useRef, useState } from "react";
 import MusicItem from "../MusicItems/MusicItem/MusicItem";
 import TopMusicItem from "../MusicItems/TopMusicItem/TopMusicItem";
-import LoadingButton from "../LoadingButton/LoadingButton";
+import LoadingButton from "../Buttons/LoadingButton/LoadingButton";
 import useRankSaver from "../../lib/hooks/useRankSaver";
 import { LangContext } from "../../lib/contexts/LangContext";
 import { MusicListContext } from "../../lib/contexts/MusicListContext";

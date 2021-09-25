@@ -1,5 +1,6 @@
 import { useRouter } from "next/router";
-import { FC, useState } from "react";
+import { FC, useContext, useState } from "react";
+import { LangContext } from "../../lib/contexts/LangContext";
 import ImageBox from "../ImageBox/ImageBox";
 import styles from "./Dropdown.module.scss";
 
@@ -16,13 +17,14 @@ interface Props {
 const Dropdown: FC<Props> = ({ options }) => {
     const [open, setOpen] = useState(false);
     const router = useRouter();
+    const { Dropdown: lang } = useContext(LangContext);
 
     const toggleMenu = () => setOpen(open => !open);
 
     return (
         <div className={styles.Dropdown}>
             <div className={styles.button} onClick={toggleMenu}>
-                <ImageBox className={styles.flag} src={`/images/png/${router.locale}.png`} alt="" width={30} height={20}/>
+                <ImageBox className={styles.flag} src={`/images/png/${router.locale}.png`} alt={lang.imageAlt} width={30} height={20}/>
             </div>
             <ul className={`${styles.menu} ${open ? styles.open : null}`}>
                 {options.map((option, index) => {

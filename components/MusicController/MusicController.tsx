@@ -127,10 +127,10 @@ const MusicController: FC<Props> = ({ tracks }) => {
                 <span/>
                 <span/>
                 <span/>
-                <svg className={styles.play} width="19" height="20" viewBox="0 0 19 20">
+                <svg className={styles.play} width="19" height="20" viewBox="0 0 19 20" role="img" aria-label="Play">
                     <path d="M1.07272 0.278809L18.012 9.98115L0.992889 19.7292L1.07272 0.278809ZM3.05861 3.72111L3.0071 16.2707L13.988 9.98115L3.05861 3.72111Z"/>
                 </svg>
-                <svg className={styles.pause} width="12" height="20" viewBox="0 0 12 20">
+                <svg className={styles.pause} width="12" height="20" viewBox="0 0 12 20" role="img" aria-label="Pause">
                     <path d="M3 0H0V20H3V0ZM12 0H9V20H12V0Z"/>
                 </svg>
             </div>

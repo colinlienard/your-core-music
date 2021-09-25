@@ -6,7 +6,7 @@ import useRankGetter from "../../../lib/hooks/useRankGetter";
 import { LangContext } from "../../../lib/contexts/LangContext";
 import styles from "./TopMusicItem.module.scss";
 import useAnimOnScroll from "../../../lib/hooks/useAnimOnScroll";
-import ListenButton from "../../ListenButton/ListenButton";
+import ListenButton from "../../Buttons/ListenButton/ListenButton";
 
 interface Props {
     url: string,
@@ -27,7 +27,7 @@ const TopMusicItem: FC<Props> = ({ url, image, name, rank, oldRanks, id, popular
 
     return (
         <div className={`${styles.TopMusicItem} ${visible ? null : styles.hidden}`} ref={ref}>
-            <ImageBox className={styles.image} src={image} alt=""/>
+            <ImageBox className={styles.image} src={image} alt={`${lang.imageAlt} ${name}.`} width={320} height={320}/>
             <div className={styles.positionContainer}>
                 <p>{`# ${rank}`}</p>
                 <RankArrow evolution={oldRank ? oldRank - rank : null}/>

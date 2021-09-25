@@ -4,7 +4,7 @@ import { RankList } from "../../../lib/types";
 import useRankGetter from "../../../lib/hooks/useRankGetter";
 import RankArrow from "../../RankArrow/RankArrow";
 import useAnimOnScroll from "../../../lib/hooks/useAnimOnScroll";
-import ListenButton from "../../ListenButton/ListenButton";
+import ListenButton from "../../Buttons/ListenButton/ListenButton";
 import { LangContext } from "../../../lib/contexts/LangContext";
 import styles from "./MusicItem.module.scss";
 
@@ -31,7 +31,7 @@ const TopMusicItem: FC<Props> = ({ url, image, name, rank, oldRanks, id, popular
                 <p className={styles.number}>{rank}</p>
                 <RankArrow evolution={oldRank ? oldRank - rank : null}/>
             </div>
-            <ImageBox className={styles.image} src={image} alt=""/>
+            <ImageBox className={styles.image} src={image} alt={`${lang.imageAlt} ${name}.`} width={64} height={64}/>
             <div className={styles.titlesContainer}>
                 <h3 className={styles.title}>{name}</h3>
             <p className={styles.subtitle}>{popularity ? `${popularity}% ${lang.mainstream}` : artists}</p>

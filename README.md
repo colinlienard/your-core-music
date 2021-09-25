@@ -8,6 +8,7 @@
 
 - React
 - NextJS
+- Typescript
 - Sass
 - Spotify API
 

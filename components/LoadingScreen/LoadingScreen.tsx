@@ -13,7 +13,7 @@ const LoadingScreen: FC = () => {
     return (
         <div className={`${styles.LoadingScreen} ${visible ? styles.visible : ""}`}>
             <span className={styles.circle}/>
-            <p className={styles.text}>{lang.loading}</p>
+            <p className={styles.text}><strong>{lang.loading}</strong></p>
         </div>
     )
 }

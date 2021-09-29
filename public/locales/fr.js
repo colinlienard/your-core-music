@@ -3,12 +3,13 @@ const fr = {
         metaDesc: "Pas envie d'attendre la rétrospective Spotify ? Découvrez vos statistiques (artistes, morceaux et genres préférés) à travers différentes périodes.",
         current: "FR",
         hero: [
-            "Découvrez ce",
-            "que vous écoutez",
-            "le plus 🔥"
+            "Découvrez vos",
+            "statistiques",
+            "Spotify 🔥"
         ],
         subhero: "Découvrez vos artistes préférés, vos titres phares et les genres musicaux que vous écoutez le plus.",
         login: "Se connecter avec",
+        altArrow: "Descendre dans la page",
         loading: "Connexion à Spotify",
         title1: "⚡ Découvrez vos meilleurs artistes, albums, morceaux et genres avec votre classement personnel",
         subtitle1: "Observez comment vos goûts changent au fil du temps (vos statistiques sont mises à jour chaque jour !).",
@@ -21,7 +22,7 @@ const fr = {
         subtitle3: "Ce site ne contient aucune pub et ne stocke aucune donnée privée."
     },
     Stats: {
-        metaDesc: "",
+        metaDesc: "Vos statistiques Spotify sont à votre portée ! Choisissez la période que vous voulez explorer et observez votre évolution musicale au fil du temps.",
         hero: [
             "👋 Bonjour ",
             " !",
@@ -80,6 +81,20 @@ const fr = {
         content: "Pour pouvoir jouer un contenu audio, votre navigateur requiert une action de votre part sur ce site. Choisissez \"Je veux écouter\" pour autoriser ce site a jouer vos musiques préférées.",
         agree: "Je veux écouter",
         disagree: "Pas de musique"
+    },
+    Footer: {
+        links: {
+            title: "Liens utiles",
+            login: "Se connecter",
+            logout: "Se déconnecter",
+            spotify: "Aller sur Spotify"
+        },
+        infos: {
+            title: "Contact & informations",
+            mail: ["Contactez-nous", " par mail"],
+            github: ["Ce projet est open source. Consultez le code sur ", "GitHub"]
+        },
+        copyright: "© 2021 Spotify Hindsight, All Rights reserved"
     }
 }
 

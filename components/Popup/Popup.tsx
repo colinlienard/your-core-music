@@ -24,7 +24,6 @@ const Popup: FC<Props> = ({ userData, open, toggle }) => {
                 : null
             }
             <div className={styles.informationsContainer}>
-                {/* <img className={styles.cross} src="images/svg/cross.svg" alt="" onClick={toggle}/> */}
                 <svg className={styles.cross} width="15" height="15" viewBox="0 0 15 15" role="img" aria-label={lang.svgAlt} onClick={toggle}>
                     <path d="M6.89941 8.89954L6.89941 14.8995H8.89941V8.89954H14.8994V6.89954L8.89941 6.89954V0.899536L6.89941 0.899536V6.89954H0.899414L0.899414 8.89954H6.89941Z"/>
                 </svg>

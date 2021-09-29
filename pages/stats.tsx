@@ -82,7 +82,7 @@ const Stats: FC<Props> = ({ accessToken, user, artists, tracks, artistsRanks, tr
             <RecommendationsSection data={allRecommendations}/>
         </main>
         <ScrollUpButton/>
-        <Footer/>
+        <Footer logged/>
     </>)
 }
 
@@ -98,8 +98,8 @@ export const getServerSideProps: GetServerSideProps = async ctx => {
                 date.setTime(date.getTime() + json.expires_in * 1000);
                 
                 ctx.res.setHeader("Set-Cookie", [
-                    `accessToken=${json.access_token}; path=/; expires=${date.toUTCString()};`,
-                    json.refresh_token ? `refreshToken=${json.refresh_token}; path=/; expires=Tue, 19 Jan 2038 04:14:07 GMT` : ""
+                    `accessToken=${json.access_token}; path=/; secure; expires=${date.toUTCString()};`,
+                    json.refresh_token ? `refreshToken=${json.refresh_token}; path=/; secure; expires=Tue, 19 Jan 2038 04:14:07 GMT` : ""
                 ]);
                 ctx.res.statusCode = 200;
 

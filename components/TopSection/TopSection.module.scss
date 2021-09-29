@@ -39,6 +39,7 @@
                 white-space: nowrap;
                 transition: color .3s ease-in-out, border .3s ease-in-out;
                 @include button($main);
+                color: lighten($main, 5);
 
                 &.unselected {
                     color: white;

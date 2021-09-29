@@ -9,7 +9,7 @@ interface Props {
 
 const LoadingButton: FC<Props> = ({ children, className, onClick, loading }) => {
     return (
-        <button className={`${className} ${styles.LoadingButton} ${loading ? styles.loading : ""}`} onClick={onClick} data-color={"#000000"}>
+        <button className={`${className} ${styles.LoadingButton} ${loading ? styles.loading : ""}`} onClick={onClick} aria-label="See more">
             {children}
             {loading ? <span className={styles.circle}/> : null}
         </button>

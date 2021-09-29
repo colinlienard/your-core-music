@@ -1,7 +1,7 @@
 import { FC, useContext, useEffect, useRef, useState } from "react";
 import MusicItem from "../MusicItems/MusicItem/MusicItem";
 import TopMusicItem from "../MusicItems/TopMusicItem/TopMusicItem";
-import LoadingButton from "../LoadingButton/LoadingButton";
+import LoadingButton from "../Buttons/LoadingButton/LoadingButton";
 import useRankSaver from "../../lib/hooks/useRankSaver";
 import { LangContext } from "../../lib/contexts/LangContext";
 import { MusicListContext } from "../../lib/contexts/MusicListContext";
@@ -97,7 +97,7 @@ const ArtistsSection: FC<Props> = ({ timeLimit, getData, artistsRanks }) => {
                         <svg width="15" height="15" viewBox="0 0 15 15">
                             <path d="M6.89941 8.89954L6.89941 14.8995H8.89941V8.89954H14.8994V6.89954L8.89941 6.89954V0.899536L6.89941 0.899536V6.89954H0.899414L0.899414 8.89954H6.89941Z"/>
                         </svg>
-                        <p>{lang.more}</p>
+                        <span>{lang.more}</span>
                     </LoadingButton>
                     :
                     null

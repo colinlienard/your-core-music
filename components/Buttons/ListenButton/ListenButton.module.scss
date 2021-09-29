@@ -1,4 +1,4 @@
-@import "../../styles/mixins.scss";
+@import "../../../styles/mixins.scss";
 
 .ListenButton {
     display: flex;
@@ -10,13 +10,16 @@
         width: 1rem;
     }
 
-    p {
+    .text {
         white-space: nowrap;
-        display: none;
+
+        &.small {
+            display: none;
+        }
     }
 
     @include laptop {
-        p {
+        .text.small {
             display: block;
         }
     }

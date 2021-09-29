@@ -3,6 +3,7 @@ import { TrackContent } from "../../lib/types";
 import ErrorMessage from "../ErrorMessage/ErrorMessage";
 import { LangContext } from "../../lib/contexts/LangContext";
 import styles from "./MusicController.module.scss";
+import splitArtists from "../../lib/tools/splitArtists";
 
 interface Props {
     tracks: TrackContent[]
@@ -31,7 +32,7 @@ const MusicController: FC<Props> = ({ tracks }) => {
         audio.current.play().then(() => {
             startPlaying();
         }).catch(() => {
-            setDisplayError(true);
+            setTimeout(() => setDisplayError(true), 1000);
         })
 
         return () => clearTimeout(timeoutFade);
@@ -43,24 +44,6 @@ const MusicController: FC<Props> = ({ tracks }) => {
         setTransition(false);
         setHidden(false);
         setDisplayError(false);
-    }
-
-    const splitArtists = (artists: { name: string }[]) => {
-        if(artists.length === 1) {
-            return artists[0].name;
-        }
-        
-        let result = "";
-
-        artists.forEach(artist => {
-            if(result.length === 0) {
-                result = artist.name;
-            } else {
-                result = `${result}, ${artist.name}`;
-            }
-        });
-
-        return result;
     }
     
     const calcWidth = (element: HTMLDivElement) => setWidth(element.offsetWidth);
@@ -144,20 +127,20 @@ const MusicController: FC<Props> = ({ tracks }) => {
                 <span/>
                 <span/>
                 <span/>
-                <svg className={styles.play} width="19" height="20" viewBox="0 0 19 20">
+                <svg className={styles.play} width="19" height="20" viewBox="0 0 19 20" role="img" aria-label="Play">
                     <path d="M1.07272 0.278809L18.012 9.98115L0.992889 19.7292L1.07272 0.278809ZM3.05861 3.72111L3.0071 16.2707L13.988 9.98115L3.05861 3.72111Z"/>
                 </svg>
-                <svg className={styles.pause} width="12" height="20" viewBox="0 0 12 20">
+                <svg className={styles.pause} width="12" height="20" viewBox="0 0 12 20" role="img" aria-label="Pause">
                     <path d="M3 0H0V20H3V0ZM12 0H9V20H12V0Z"/>
                 </svg>
             </div>
-            <span className={`${styles.progressBar} ${!playing ? styles.paused : null}`} ref={progressBar} style={{ width: `${width - 3}px` }}/>
+            <span className={`${styles.progressBar} ${!playing ? styles.paused : null}`} ref={progressBar} style={{ width: `${width}px` }}/>
         </div>
         <ErrorMessage
             title={lang.title}
             content={lang.content}
             success={{ message: lang.agree, action: startPlaying }}
-            fail={{ message: lang.disagree,  action:() => setDisplayError(false) }}
+            fail={{ message: lang.disagree,  action: () => setDisplayError(false) }}
             visible={displayError}
         />
     </>)

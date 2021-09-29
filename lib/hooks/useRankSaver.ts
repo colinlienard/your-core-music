@@ -13,22 +13,26 @@ const rankingReducer: Reducer<RankList, RankingAction> = (state, action) => {
             const ranks = document.cookie.split("; ").find((row) => row.startsWith(`${action.contentType}Ranks_${action.timeLimit}`))!;
             const list = JSON.parse(ranks.split("=")[1]);
             if(JSON.stringify(list.slice(0, addedContent.length)) !== JSON.stringify(addedContent)) {
-                document.cookie = `${action.contentType}Ranks_${action.timeLimit}=${JSON.stringify(addedContent)}; expires=Tue, 19 Jan 2038 04:14:07 GMT`;
+                document.cookie = `${action.contentType}Ranks_${action.timeLimit}=${JSON.stringify(addedContent)}; path=/; secure; expires=Tue, 19 Jan 2038 04:14:07 GMT`;
             }
             return addedContent;
         case "changeTime":
             let newContent: RankList = [];
             action.value.forEach((element) => newContent = [...newContent, element.id]);
             const newRanks = document.cookie.split("; ").find((row) => row.startsWith(`${action.contentType}Ranks_${action.timeLimit}`))!;
-            const newList = JSON.parse(newRanks.split("=")[1]);
-            if(JSON.stringify(newList.slice(0, 10)) !== JSON.stringify(newContent)) {
-                document.cookie = `${action.contentType}Ranks_${action.timeLimit}=${JSON.stringify(newContent)}; expires=Tue, 19 Jan 2038 04:14:07 GMT`;
+            if(newRanks) {
+                const newList = JSON.parse(newRanks.split("=")[1]);
+                if(JSON.stringify(newList.slice(0, 10)) !== JSON.stringify(newContent)) {
+                    document.cookie = `${action.contentType}Ranks_${action.timeLimit}=${JSON.stringify(newContent)}; path=/; secure; expires=Tue, 19 Jan 2038 04:14:07 GMT`;
+                }
+            } else {
+                document.cookie = `${action.contentType}Ranks_${action.timeLimit}=${JSON.stringify(newContent)}; path=/; secure; expires=Tue, 19 Jan 2038 04:14:07 GMT`;
             }
             return newContent;
         case "updateGenres":
             let newGenres: RankList = [];
             action.value.forEach((element) => newGenres = [...newGenres, element.id]);
-            document.cookie = `genresRanks_${action.timeLimit}=${JSON.stringify(newGenres)}; expires=Tue, 19 Jan 2038 04:14:07 GMT`;
+            document.cookie = `genresRanks_${action.timeLimit}=${JSON.stringify(newGenres)}; path=/; secure; expires=Tue, 19 Jan 2038 04:14:07 GMT`;
             return newGenres;
         default:
             throw new Error("The Ranking system has failed.");
@@ -46,12 +50,11 @@ const useRankSaver = (array: ArtistContent[] | TrackContent[] | GenreList, type:
         if(ranks) {
             ranks = ranks.split("=")[1];
             const list: RankList = JSON.parse(ranks);
-            // console.log(type, list.slice(0, 10), defaultList);
             if(JSON.stringify(list.slice(0, 10)) === JSON.stringify(defaultList)) {
                 return;
             }
         }
-        document.cookie = `${type}Ranks_short_term=${JSON.stringify(defaultList)}; expires=Tue, 19 Jan 2038 04:14:07 GMT`;
+        document.cookie = `${type}Ranks_short_term=${JSON.stringify(defaultList)}; path=/; secure; expires=Tue, 19 Jan 2038 04:14:07 GMT`;
     }, [])
 
     return [ranking, dispatchRanking] as const;

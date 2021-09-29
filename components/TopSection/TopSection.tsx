@@ -19,21 +19,27 @@ const TopSection: FC<Props> = ({ name, timeLimit, setTimeLimit }) => {
                     <li>
                         <button
                             className={`${styles.button} ${timeLimit === "short_term" ? null : styles.unselected}`}
-                            onClick={() => setTimeLimit("short_term")}>
+                            onClick={() => setTimeLimit("short_term")}
+                            aria-label={`${lang.buttonAlt} ${lang.lastMonth}`}
+                        >
                             {lang.lastMonth}
                         </button>
                     </li>
                     <li>
                         <button
                             className={`${styles.button} ${timeLimit === "medium_term" ? null : styles.unselected}`}
-                            onClick={() => setTimeLimit("medium_term")}>
+                            onClick={() => setTimeLimit("medium_term")}
+                            aria-label={`${lang.buttonAlt} ${lang.last6Months}`}
+                        >
                             {lang.last6Months}
                         </button>
                     </li>
                     <li>
                         <button
                             className={`${styles.button} ${timeLimit === "long_term" ? null : styles.unselected}`}
-                            onClick={() => setTimeLimit("long_term")}>
+                            onClick={() => setTimeLimit("long_term")}
+                            aria-label={`${lang.buttonAlt} ${lang.allTime}`}
+                        >
                             {lang.allTime}
                         </button>
                     </li>

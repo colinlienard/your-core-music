@@ -45,3 +45,11 @@ export interface ArtistName {
 export type GenreList = { id: string }[]
 
 export type RankList = string[]
+
+export type Recommendations = { tracks: TrackContent[] }
+
+export type allRecommendations = {
+    calm: Recommendations,
+    energetic: Recommendations,
+    dancing: Recommendations
+}

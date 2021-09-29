@@ -23,12 +23,33 @@
     }
 }
 
-.topSection {
+@keyframes rotate {
+    from {
+        transform: rotate(0);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes pulsing {
+    0% {
+        opacity: 1;
+    }
+    50% {
+        opacity: .2;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+.header {
     height: clamp(44rem, 100vh, 46rem);
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 6rem 2rem 2rem 2rem;
+    padding: 7rem 2rem 2rem 2rem;
     overflow: hidden;
     position: relative;
 
@@ -52,13 +73,14 @@
         }
 
         .hero {
-            white-space: nowrap;
+            display: flex;
+            flex-direction: column;
             @include title;
         }
 
         .subhero {
             max-width: 90%;
-            margin-top: 2rem;
+            margin-top: 1rem;
 
             @include laptop {
                 max-width: 24rem;
@@ -98,13 +120,13 @@
         width: 100%;
         height: 100%;
         z-index: -1;
-        background: radial-gradient(min(100vw, 48rem) min(100vw, 48rem) at 100% 100%, rgba($main, .2), transparent);
+        background: radial-gradient(min(80vw, 48rem) min(80vw, 48rem) at 100% 100%, rgba($main, .2), transparent);
     }
 
     .favoritesContainer {
         position: absolute;
-        top: 23rem;
-        width: 70%;
+        top: 21rem;
+        width: 80%;
         height: 14rem;
         transform: rotate(-30deg);
 
@@ -121,7 +143,7 @@
             left: 55%;
         }
 
-        img, div {
+        .disc1, .disc2, .disc3, .artist1, .artist2 {
             position: absolute;
             animation: float infinite ease-in-out;
         }
@@ -225,5 +247,272 @@
 
             .shootingStar5 { width: .5rem; }
         }
+    }
+}
+
+.section1 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 4rem;
+
+    @include laptop {
+        margin-top: 12rem;
+    }
+
+    .content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        max-width: 64rem;
+        height: 100%;
+
+        @include laptop {
+            flex-direction: row;
+        }
+
+        .imageContainer {
+            width: 100%;
+            position: relative;
+            display: flex;
+            transition: 1s cubic-bezier(.7, 0, .3, 1);
+        
+            &.hidden {
+                transform: translateY(1rem);
+                opacity: 0;
+            }
+
+            .mainImage {
+                width: 80%;
+                margin: 4rem auto 0 auto;
+
+                @include laptop {
+                    width: 100%;
+                    margin: 0;
+                }
+            }
+
+            .halo {
+                position: absolute;
+                top: 0rem;
+                left: -2.5rem;
+                width: 16rem;
+                height: 16rem;
+                border-radius: 50%;
+                background: radial-gradient(rgba($main, .3), transparent 70%);
+                animation: pulsing 6s linear infinite;
+
+                @include laptop {
+                    top: -6rem;
+                    left: -7rem;
+                    width: 24rem;
+                    height: 24rem;
+                }
+            }
+
+            .shootingStar1, .shootingStar2, .shootingStar3 {
+                position: absolute;
+                animation: float infinite ease-in-out;
+            }
+
+            .shootingStar1 {
+                width: .15rem;
+                top: 6rem;
+                left: 1.5rem;
+                z-index: -1;
+                animation-duration: 10s;
+
+                @include laptop {
+                    width: .2rem;
+                    top: 2rem;
+                    left: -2rem;
+                }
+            }
+
+            .shootingStar2 {
+                width: .3rem;
+                top: 2rem;
+                left: 20%;
+                z-index: -1;
+                animation-duration: 8s;
+
+                @include laptop {
+                    width: .4rem;
+                    top: -2rem;
+                    left: 15%;
+                }
+            }
+
+            .shootingStar3 {
+                width: .3rem;
+                top: 7rem;
+                left: 40%;
+                animation-duration: 6s;
+
+                @include laptop {
+                    width: .4rem;
+                    top: 4rem;
+                    left: 35%;
+                }
+            }
+        }
+
+        .textContainer {
+            padding: 2rem;
+
+            @include laptop {
+                width: 100%;
+                padding: 0;
+                text-align: right;
+            }
+
+            .title {
+                margin: 1rem 0;
+                @include title(true);
+            }
+        }
+    }
+}
+
+.section2 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 4rem;
+    overflow: hidden;
+
+    @include laptop {
+        margin-top: 12rem;
+    }
+
+    .content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        max-width: 64rem;
+        height: 100%;
+
+        @include laptop {
+            flex-direction: row-reverse;
+        }
+
+        .imageContainer {
+            width: calc(100vw - 4rem);
+            height: calc(100vw - 4rem);
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: 1s cubic-bezier(.7, 0, .3, 1);
+        
+            &.hidden {
+                transform: translateY(1rem);
+                opacity: 0;
+            }
+
+            @include laptop {
+                width: 100%;
+                max-width: 28rem;
+                height: 28rem;
+                margin-left: 4rem;
+            }
+            
+            .circle1, .circle2, .circle3, .circle4 {
+                --border-width: 1px;
+                position: absolute;
+                border-radius: 50%;
+                // border: solid $main;
+                background-image: conic-gradient(transparent 10%, $main);
+                animation: rotate linear infinite;
+
+                &::after {
+                    content: "";
+                    position: absolute;
+                    top: var(--border-width);
+                    left: var(--border-width);
+                    width: calc(100% - var(--border-width) * 2);
+                    height: calc(100% - var(--border-width) * 2);
+                    border-radius: 50%;
+                    background-color: $dark;
+                }
+            }
+
+            .circle1 {
+                width: 100%;
+                height: 100%;
+                --border-width: 1px;
+                animation-duration: 16s;
+            }
+
+            .circle2 {
+                width: 60%;
+                height: 60%;
+                --border-width: 2px;
+                animation-duration: 15.9s;
+            }
+
+            .circle3 {
+                width: 35%;
+                height: 35%;
+                --border-width: 3px;
+                animation-duration: 15.8s;
+            }
+
+            .circle4 {
+                width: 15%;
+                height: 15%;
+                --border-width: 4px;
+                animation-duration: 15.7s;
+            }
+        }
+
+        .textContainer {
+            width: 100%;
+            padding: 2rem;
+
+            @include laptop {
+                padding: 0;
+            }
+
+            .title {
+                margin: 1rem 0;
+                @include title(true);
+            }
+        }
+    }
+}
+
+.section3 {
+    margin: 2rem 0;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    @include laptop {
+        margin: 12rem 0 6rem 0;
+    }
+
+    .title {
+        margin-bottom: .5rem;
+        max-width: 52rem;
+        text-align: center;
+        @include title(true);
+
+        a {
+            text-decoration: underline;
+            transition: .3s ease-in-out;
+
+            &:hover {
+                color: $spotify;
+            }
+        }
+    }
+
+    .subtitle {
+        max-width: 52rem;
+        text-align: center;
     }
 }

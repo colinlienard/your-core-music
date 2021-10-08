@@ -2,9 +2,9 @@
   "name": "your-core-music",
   "description": "Statistics for Spotify",
   "author": {
-      "name": "Colin Lienard",
-      "email": "colin.lienard87@orange.fr",
-      "url": "https://colin-lienard.fr/"
+    "name": "Colin Lienard",
+    "email": "colin.lienard87@orange.fr",
+    "url": "https://colin-lienard.fr/"
   },
   "version": "1.0.0",
   "private": true,
@@ -21,11 +21,11 @@
     "sharp": "^0.29.1"
   },
   "devDependencies": {
-    "@types/node": "^16.0.0",
-    "@types/react": "^17.0.13",
-    "eslint": "7.30.0",
-    "eslint-config-next": "11.0.1",
+    "@types/node": "^16.10.3",
+    "@types/react": "^17.0.27",
+    "eslint": "7.32.0",
+    "eslint-config-next": "11.1.2",
     "sass": "^1.42.1",
-    "typescript": "^4.3.5"
+    "typescript": "^4.4.3"
   }
 }

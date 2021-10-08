@@ -1,9 +1,9 @@
 import { FC, useState, useEffect, useRef, memo, useContext } from "react";
-import { TrackContent } from "../../lib/types";
+import { ArtistContent, TrackContent } from "../../lib/types";
 import ErrorMessage from "../ErrorMessage/ErrorMessage";
 import { LangContext } from "../../lib/contexts/LangContext";
 import styles from "./MusicController.module.scss";
-import splitArtists from "../../lib/tools/splitArtists";
+// import splitArtists from "../../lib/tools/splitArtists";
 
 interface Props {
     tracks: TrackContent[]
@@ -15,8 +15,8 @@ const MusicController: FC<Props> = ({ tracks }) => {
     const MAX_VOLUME = .2;
     const [playing, setPlaying] = useState(false);
     const [trackNumber, setTrackNumber] = useState(0);
-    const [track, setTrack] = useState("");
-    const [artist, setArtist] = useState("");
+    const [track, setTrack] = useState<{ name: string, url: string, artists: ArtistContent[] }>();
+    // const [artist, setArtist] = useState("");
     const [hidden, setHidden] = useState(true);
     const [width, setWidth] = useState(0);
     const [displayError, setDisplayError] = useState(false);
@@ -75,8 +75,12 @@ const MusicController: FC<Props> = ({ tracks }) => {
 
     const changeAudio = async () => {
         if(trackNumber < tracks.length) {
-            setTrack(tracks[trackNumber].name);
-            setArtist(splitArtists(tracks[trackNumber].artists));
+            setTrack({
+                name: tracks[trackNumber].name,
+                url: tracks[trackNumber].external_urls.spotify,
+                artists: tracks[trackNumber].artists
+            });
+            // setArtist(splitArtists(tracks[trackNumber].artists));
             
             await audio.current.pause();
             setPlaying(false);
@@ -119,8 +123,21 @@ const MusicController: FC<Props> = ({ tracks }) => {
             <audio ref={audio} onEnded={changeAudio}/>
             <div className={styles.background} style={{ width: `${width}px` }}/>
             <div className={styles.textContainer}>
-                <p className={styles.track}>{track}</p>
-                <p className={styles.artist}>{artist}</p>
+                <p><a className={styles.track} href={track?.url} target="_blank" rel="noreferrer">{track?.name}</a></p>
+                <p>
+                    {track?.artists.map((artist, index) => {
+                        return (
+                            <span key={index}>
+                                {index !== 0 ?
+                                    <span>, </span>
+                                    :
+                                    null
+                                }
+                                <a className={styles.artist} href={artist.external_urls.spotify} target="_blank" rel="noreferrer">{artist.name}</a>
+                            </span>
+                        )
+                    })}
+                </p>
             </div>
             <div className={`${styles.iconsContainer} ${playing ? styles.playing : styles.notPlaying}`}>
                 <span/>

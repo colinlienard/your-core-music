@@ -11,54 +11,64 @@
         margin-left: 4rem;
     }
 
-    .imageContainer {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        position: relative;
+    .image {
+        width: 16rem;
+        height: 16rem;
 
         @include laptop {
-            &:hover {
-                .overImage {
-                    opacity: .5;
-                }
-
-                .icon {
-                    opacity: 1;
-                }
-            }
-        }
-
-        .image {
-            width: 16rem;
-            height: 16rem;
-    
-            @include laptop {
-                width: 20rem;
-                height: 20rem;
-            }
-        }
-
-        .overImage {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            background-color: $dark;
-            opacity: 0;
-            transition: .3s ease-in-out;
-        }
-
-        .icon {
-            position: absolute;
-            width: 3rem;
-            height: 3rem;
-
-            @include laptop {
-                opacity: 0;
-                transition: .3s ease-in-out;
-            }
+            width: 20rem;
+            height: 20rem;
         }
     }
+
+    // .imageContainer {
+    //     display: flex;
+    //     align-items: center;
+    //     justify-content: center;
+    //     position: relative;
+
+    //     @include laptop {
+    //         &:hover {
+    //             .overImage {
+    //                 opacity: .5;
+    //             }
+
+    //             .icon {
+    //                 opacity: 1;
+    //             }
+    //         }
+    //     }
+
+    //     .image {
+    //         width: 16rem;
+    //         height: 16rem;
+    
+    //         @include laptop {
+    //             width: 20rem;
+    //             height: 20rem;
+    //         }
+    //     }
+
+    //     .overImage {
+    //         position: absolute;
+    //         width: 100%;
+    //         height: 100%;
+    //         background-color: $dark;
+    //         opacity: 0;
+    //         transition: .3s ease-in-out;
+    //     }
+
+    //     .icon {
+    //         position: absolute;
+    //         width: 3rem;
+    //         height: 3rem;
+
+    //         @include laptop {
+    //             opacity: 0;
+    //             transition: .3s ease-in-out;
+    //         }
+    //     }
+    // }
 
     .title {
         font-size: 1.8rem;
@@ -69,5 +79,9 @@
             margin-top: 1.2rem;
             font-size: 2.2rem;
         }
+    }
+
+    a {
+        margin: 1.5rem auto 0 auto;
     }
 }

@@ -66,10 +66,12 @@
         width: 100%;
         max-width: 64rem;
         height: 100%;
+        text-align: center;
 
         @include laptop {
             height: auto;
             padding: 4rem 0 0 2rem;
+            text-align: left;
         }
 
         .hero {
@@ -360,6 +362,7 @@
 
         .textContainer {
             padding: 2rem;
+            text-align: center;
 
             @include laptop {
                 width: 100%;
@@ -471,9 +474,11 @@
         .textContainer {
             width: 100%;
             padding: 2rem;
+            text-align: center;
 
             @include laptop {
                 padding: 0;
+                text-align: left;
             }
 
             .title {

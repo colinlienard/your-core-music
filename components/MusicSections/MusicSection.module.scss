@@ -144,17 +144,6 @@
             @include laptop {
                 margin-top: 4rem;
                 padding-left: 15vw;
-
-                li {
-                    opacity: .75;
-                    transition: .5s ease-in-out;
-                }
-
-                &:hover {
-                    li {
-                        opacity: 1;
-                    }
-                }
             }
 
             .recommendationsType {

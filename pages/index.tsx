@@ -12,7 +12,7 @@ import styles from "../styles/Home.module.scss";
 const Home: FC = () => {
     const [loading, setLoading] = useState(false);
     const { Home: lang } = useContext(LangContext);
-    const loginUrl = `https://accounts.spotify.com/authorize?client_id=${process.env.NEXT_PUBLIC_CLIENT_ID}&response_type=code&redirect_uri=${process.env.NEXT_PUBLIC_URL}${lang.current === "FR" ? "/fr" : ""}/stats&scope=user-read-recently-played%20user-top-read%20user-read-email%20user-read-private`;
+    const loginUrl = `https://accounts.spotify.com/authorize?client_id=${process.env.NEXT_PUBLIC_CLIENT_ID}&response_type=code&redirect_uri=${process.env.NEXT_PUBLIC_URL}${lang.current === "FR" ? "/fr" : ""}/stats&scope=user-top-read%20user-read-email%20user-read-private`;
     const ref1 = useRef(null);
     const ref2 = useRef(null);
     const visible1 = useAnimOnScroll(ref1);
@@ -22,10 +22,11 @@ const Home: FC = () => {
 
     return (<>
         <Head>
-            <title>Spotify Hindsight</title>
+            <title>{lang.pageTitle}</title>
             <meta name="description" content={lang.metaDesc}/>
             <link rel="icon" href="/favicon.ico"/>
-            <link rel="canonical" href="https://www.spotify-hindsight.io"/>
+            {/* ⚠ TODO: update canonical URL */}
+            {/* <link rel="canonical" href=""/> */}
         </Head>
         {loading ?
             <LoadingScreen/>

@@ -61,10 +61,11 @@ const Stats: FC<Props> = ({ accessToken, user, artists, tracks, artistsRanks, tr
 
     return (<>
         <Head>
-            <title>Spotify Hindsight | {user.display_name}</title>
+            <title>{lang.pageTitle[0]}{user.display_name}{lang.pageTitle[1]}</title>
             <meta name="description" content={lang.metaDesc}/>
             <link rel="icon" href="/favicon.ico"/>
-            <link rel="canonical" href="https://www.spotify-hindsight.io"/>
+            {/* ⚠ TODO: update canonical URL */}
+            {/* <link rel="canonical" href=""/> */}
         </Head>
         <NavBar logged userData={user}/>
         {musicAllowed ?

@@ -1,5 +1,6 @@
 const fr = {
     Home: {
+        pageTitle: "Your Core Music | Statistiques pour Spotify",
         metaDesc: "Pas envie d'attendre la rétrospective Spotify ? Découvrez vos statistiques (artistes, morceaux et genres préférés) à travers différentes périodes.",
         current: "FR",
         hero: [
@@ -17,11 +18,15 @@ const fr = {
         subtitle2: "...ou laissez-vous guider par des recommendations musicales sur différents thèmes.",
         title3: [
             "Connectez-vous à Spotify",
-            " et accédez à vos statistiques simplement et de manière sécurisée. 👾"
+            " et accédez à vos statistiques simplement et de manière sécurisée 👾"
         ],
         subtitle3: "Ce site ne contient aucune pub et ne stocke aucune donnée privée."
     },
     Stats: {
+        pageTitle: [
+            "Your Core Music | ",
+            ", vos statistiques Spotify vous attendent"
+        ],
         metaDesc: "Vos statistiques Spotify sont à votre portée ! Choisissez la période que vous voulez explorer et observez votre évolution musicale au fil du temps.",
         hero: [
             "👋 Bonjour ",
@@ -44,7 +49,7 @@ const fr = {
         }
     },
     NavBar: {
-        description: "pour",
+        description: "Stats pour",
         current: "FR",
         switch: "Switch to EN",
         login: "Connexion",
@@ -83,6 +88,7 @@ const fr = {
         disagree: "Pas de musique"
     },
     Footer: {
+        description: "Statistiques pour Spotify",
         links: {
             title: "Liens utiles",
             login: "Se connecter",
@@ -91,10 +97,10 @@ const fr = {
         },
         infos: {
             title: "Contact & informations",
-            mail: ["Contactez-nous", " par mail"],
-            github: ["Ce projet est open source. Consultez le code sur ", "GitHub"]
+            mail: "Contactez-nous par mail",
+            github: "Ce projet est open source. Consultez le code sur GitHub"
         },
-        copyright: "© 2021 Spotify Hindsight, All Rights reserved"
+        copyright: "© 2021 Your Core Music, Tous droits réservés"
     }
 }
 

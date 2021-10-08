@@ -1,6 +1,12 @@
 {
-  "name": "spotify-hindsights",
-  "version": "0.1.0",
+  "name": "your-core-music",
+  "description": "Statistics for Spotify",
+  "author": {
+      "name": "Colin Lienard",
+      "email": "colin.lienard87@orange.fr",
+      "url": "https://colin-lienard.fr/"
+  },
+  "version": "1.0.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -9,10 +15,9 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "next": "^11.1.0",
-    "react": "17.0.2",
-    "react-dom": "17.0.2",
-    "sass": "^1.35.1",
+    "next": "^11.1.2",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
     "sharp": "^0.29.1"
   },
   "devDependencies": {
@@ -20,6 +25,7 @@
     "@types/react": "^17.0.13",
     "eslint": "7.30.0",
     "eslint-config-next": "11.0.1",
+    "sass": "^1.42.1",
     "typescript": "^4.3.5"
   }
 }

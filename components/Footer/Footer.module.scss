@@ -15,6 +15,7 @@
     .title {
         font-weight: 500;
         font-size: 1.5rem;
+        margin: 1rem 0;
 
         @include laptop {
             font-size: 2rem;
@@ -37,7 +38,7 @@
             .title {
                 font-size: 1.2rem;
                 font-weight: 500;
-                opacity: .4;
+                opacity: .3;
                 margin-bottom: 1rem;
             }
 
@@ -45,10 +46,10 @@
                 margin-bottom: .5rem;
 
                 a {
-                    color: lighten($main, 5);
+                    transition: .3s ease-in-out;
     
                     &:hover {
-                        text-decoration: underline;
+                        color: lighten($main, 7);
                     }
                 }
             }
@@ -56,6 +57,7 @@
     }
 
     .copyright {
-        opacity: .4;
+        opacity: .3;
+        text-align: center;
     }
 }

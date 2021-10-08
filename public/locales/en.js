@@ -1,5 +1,6 @@
 const en = {
     Home: {
+        pageTitle: "Your Core Music | Statistics for Spotify",
         metaDesc: "Don't want to wait for the Spotify wrapped ? Check out your favorite artists, tracks and genres across different time periods.",
         current: "EN",
         hero: [
@@ -11,17 +12,21 @@ const en = {
         login: "Log in with",
         altArrow: "Scroll down in the page",
         loading: "Connection to Spotify",
-        title1: "⚡ Découvrez vos meilleurs artistes, albums, morceaux et genres avec votre classement personnel",
-        subtitle1: "Observez comment vos goûts changent au fil du temps (vos statistiques sont mises à jour chaque jour !).",
-        title2: "⏱ Sélectionnez la période que vous souhaitez explorer et redécouvrez vos anciens classiques",
-        subtitle2: "...ou laissez-vous guider par des recommendations musicales sur différents thèmes.",
+        title1: "⚡ Discover your top artists, albums, tracks and genres with your personal ranking",
+        subtitle1: "Watch how your tastes change over time (your statistics are updated daily!).",
+        title2: "⏱ Select the period you wish to explore and rediscover your old classics",
+        subtitle2: "...or let yourself be guided by musical recommendations on different themes..",
         title3: [
-            "Connectez-vous à Spotify",
-            " et accédez à vos statistiques simplement et de manière sécurisée. 👾"
+            "Login to Spotify",
+            " and access your statistics simply and securely 👾"
         ],
-        subtitle3: "Ce site ne contient aucune pub et ne stocke aucune donnée privée."
+        subtitle3: "This website doesn't contain any ads and doesn't store any private data."
     },
     Stats: {
+        pageTitle: [
+            "Your Core Music | ",
+            ", your Spotify statistics are waiting for you"
+        ],
         metaDesc: "Your Spotify stats are at your fingertips! Choose the time period you want to explore and watch your music evolve over time.",
         hero: [
             "👋 Hello ",
@@ -44,7 +49,7 @@ const en = {
         }
     },
     NavBar: {
-        description: "for",
+        description: "Stats for",
         current: "EN",
         switch: "Switch to FR",
         login: "Log in",
@@ -83,6 +88,7 @@ const en = {
         disagree: "No music"
     },
     Footer: {
+        description: "Statistics for Spotify",
         links: {
             title: "Useful links",
             login: "Login",
@@ -91,10 +97,10 @@ const en = {
         },
         infos: {
             title: "Contact & informations",
-            mail: ["Contact us", " by mail"],
-            github: ["This project is open source. Check the code on ", "GitHub"]
+            mail: "Contact us by mail",
+            github: "This project is open source. Check the code on GitHub"
         },
-        copyright: "© 2021 Spotify Hindsight, All Rights reserved"
+        copyright: "© 2021 Your Core Music, All Rights reserved"
     }
 }
 

@@ -124,6 +124,12 @@
                 font-size: 1rem;
             }
         }
+
+        .track, .artist {
+            &:hover {
+                text-decoration: underline;
+            }
+        }
     }
 
     .iconsContainer {

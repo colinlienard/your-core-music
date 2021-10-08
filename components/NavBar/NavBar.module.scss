@@ -20,7 +20,7 @@
         display: flex;
         width: 100%;
         max-width: 84rem;
-        align-items: baseline;
+        align-items: center;
         position: relative;
 
         .appName {
@@ -39,14 +39,6 @@
                 font-size: 1rem;
                 margin: 0 .5rem 0 1rem;
             }
-        }
-
-        .logo {
-            transform: translateY(.5rem);
-        }
-
-        .icon {
-            transform: translateY(.5rem);
         }
 
         .contentRight {

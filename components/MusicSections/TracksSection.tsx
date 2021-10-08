@@ -5,7 +5,7 @@ import LoadingButton from "../Buttons/LoadingButton/LoadingButton";
 import useRankSaver from "../../lib/hooks/useRankSaver";
 import { LangContext } from "../../lib/contexts/LangContext";
 import { MusicListContext } from "../../lib/contexts/MusicListContext";
-import { TrackContent, ArtistName, RankList } from "../../lib/types";
+import { TrackContent, RankList } from "../../lib/types";
 import styles from "./MusicSection.module.scss";
 import splitArtists from "../../lib/tools/splitArtists";
 

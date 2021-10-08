@@ -3,7 +3,6 @@ import { FC, useState, useContext, useEffect, memo } from "react";
 import Popup from "../Popup/Popup";
 import Dropdown from "../Dropdown/Dropdown";
 import ImageBox from "../ImageBox/ImageBox";
-import Image from "next/image";
 import { LangContext } from "../../lib/contexts/LangContext";
 import { userData } from "../../lib/types";
 import styles from "./NavBar.module.scss";
@@ -30,9 +29,9 @@ const NavBar: FC<Props> = ({ logged, loginUrl, userData, startLoading }) => {
     return (
         <nav className={styles.NavBar}>
             <div className={styles.content}>
-                <p className={styles.appName}><strong>Hindsight</strong></p>
+                <ImageBox className={styles.logo} src="/images/svg/logo.svg" alt="Your Core Music Logo" width={30} height={30}/>
                 <p className={styles.text}>{lang.description}</p>
-                <ImageBox className={styles.logo} src={`/images/png/${onMobile ? "spotify_logo" : "spotify_icon"}.png`} alt={lang.imageAlt.logo} width={onMobile ? 100 : 30} height={30}/>
+                <ImageBox className={styles.spotifyLogo} src={`/images/png/${onMobile ? "spotify_logo" : "spotify_icon"}.png`} alt={lang.imageAlt.logo} width={onMobile ? 100 : 30} height={30}/>
                 <div className={styles.contentRight}>
                     <Dropdown options={[
                         { name: "English", locale: "en", action: () => { if(router.locale !== "en") changeLang("en"); }},

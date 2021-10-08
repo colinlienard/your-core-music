@@ -21,7 +21,7 @@ export interface ArtistList {
 
 export interface TrackContent {
     album: { images: Image[] },
-    artists: { name: string }[],
+    artists: ArtistContent[],
     external_urls: { spotify: string },
     name: string,
     preview_url: string,

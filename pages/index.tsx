@@ -89,6 +89,10 @@ const Home: FC = () => {
                         <span className={styles.circle2}/>
                         <span className={styles.circle3}/>
                         <span className={styles.circle4}/>
+                        <ImageBox className={styles.disc1} src="/images/svg/disc-1.svg" alt="" width={200} height={200}/>
+                        <ImageBox className={styles.disc2} src="/images/svg/disc-2.svg" alt="" width={200} height={200}/>
+                        <ImageBox className={styles.disc3} src="/images/svg/disc-3.svg" alt="" width={200} height={200}/>
+                        <ImageBox className={styles.disc4} src="/images/svg/disc-4.svg" alt="" width={200} height={200}/>
                     </div>
                     <figcaption className={styles.textContainer}>
                         <h2 className={styles.title}>{lang.title2}</h2>

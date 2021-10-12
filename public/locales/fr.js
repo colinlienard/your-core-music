@@ -90,13 +90,13 @@ const fr = {
     Footer: {
         description: "Statistiques pour Spotify",
         links: {
-            title: "Liens utiles",
+            title: "Liens utiles 🛠️",
             login: "Se connecter",
             logout: "Se déconnecter",
             spotify: "Aller sur Spotify"
         },
         infos: {
-            title: "Contact & informations",
+            title: "Contact & informations 📝",
             mail: "Contactez-nous par mail",
             github: "Ce projet est open source. Consultez le code sur GitHub"
         },

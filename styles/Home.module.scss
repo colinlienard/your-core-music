@@ -469,6 +469,35 @@
                 --border-width: 4px;
                 animation-duration: 15.7s;
             }
+
+            .disc1, .disc2, .disc3, .disc4 {
+                position: absolute;
+                transform: rotate(15deg);
+            }
+
+            .disc1 {
+                width: 25%;
+                bottom: 10%;
+                right: 45%;
+            }
+
+            .disc2 {
+                width: 20%;
+                top: 15%;
+                right: 15%;
+            }
+
+            .disc3 {
+                width: 17%;
+                top: 20%;
+                left: 15%;
+            }
+
+            .disc4 {
+                width: 15%;
+                top: 50%;
+                right: 20%;
+            }
         }
 
         .textContainer {

@@ -1,5 +1,5 @@
-<div align="justify">
-  <img src="public/images/svg/logo.svg"/>
+<div align="center">
+  <img src="public/images/svg/logo.svg" width="128" height="128"/>
 </div>
 
 # Your Core Music
@@ -8,7 +8,7 @@ Your Core Music allows you to see your Spotify statistics (favorite artists, mos
 
 ## Link to the website
 
-[Temporary link](https://spotify-stats-8e54odofl-colinlienard.vercel.app/fr)
+[Temporary link](https://your-core-music-colinlienard.vercel.app/fr)
 
 ## Technologies used
 

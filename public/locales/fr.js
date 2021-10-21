@@ -34,7 +34,7 @@ const fr = {
             "Il est temps de découvrir ce que vous écoutez le plus..."
         ],
         lastMonth: "Dernier mois",
-        last6Months: "Les 6 dernier mois",
+        last6Months: "Les 6 derniers mois",
         allTime: "Depuis le début",
         buttonAlt: "Voir vos statistiques",
         artists: "Voici vos artistes préférés",

@@ -42,7 +42,7 @@ const NavBar: FC<Props> = ({ logged, loginUrl, userData, startLoading }) => {
                             <div className={`${styles.loginButton} ${styles.logged}`} onClick={togglePopup}>
                                 <ImageBox
                                     className={(userData as userData).images[0] ? styles.userPP : styles.defaultPP}
-                                    src={(userData as userData).images[0] ? (userData as userData).images[0].url : "images/svg/login.svg"}
+                                    src={(userData as userData).images[0] ? (userData as userData).images[0].url : "/images/svg/login.svg"}
                                     alt={lang.imageAlt.profilePicture}
                                     width={32}
                                     height={32}

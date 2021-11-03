@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="public/images/svg/logo.svg" width="128" height="128"/>
+  <img src="public/images/svg/logo.svg" width="96" height="96"/>
 </div>
 
 # Your Core Music

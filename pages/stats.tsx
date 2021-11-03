@@ -155,10 +155,12 @@ export const getServerSideProps: GetServerSideProps = async ctx => {
             long_term: ctx.req.cookies.genresRanks_long_term ? JSON.parse(ctx.req.cookies.genresRanks_long_term) : null
         }
         const allRecommendations = {
-            calm: await getData("https://api.spotify.com/v1/recommendations?seed_artists=1Xyo4u8uXC1ZmMpatF05PJ,0HdLXCWPtmK9wgd7CyNuj3,0zhMujl1yB8pkB023Qm4Y2,6PuoYFHWSuzbr45sVWZDuS,09mEdoA6zrmBPgTEN5qXmN&target_energy=0&limit=10", accessToken),
-            energetic: await getData("https://api.spotify.com/v1/recommendations?seed_artists=1Xyo4u8uXC1ZmMpatF05PJ,0HdLXCWPtmK9wgd7CyNuj3,0zhMujl1yB8pkB023Qm4Y2,6PuoYFHWSuzbr45sVWZDuS,09mEdoA6zrmBPgTEN5qXmN&target_energy=1&limit=10", accessToken),
-            dancing: await getData("https://api.spotify.com/v1/recommendations?seed_artists=1Xyo4u8uXC1ZmMpatF05PJ,0HdLXCWPtmK9wgd7CyNuj3,0zhMujl1yB8pkB023Qm4Y2,6PuoYFHWSuzbr45sVWZDuS,09mEdoA6zrmBPgTEN5qXmN&target_danceability=1&limit=10", accessToken)
+            calm: await getData(`https://api.spotify.com/v1/recommendations?seed_artists=${artists.items[0].id},${artists.items[1].id},${artists.items[2].id},${artists.items[3].id},${artists.items[4].id}&target_energy=0&limit=10`, accessToken),
+            energetic: await getData(`https://api.spotify.com/v1/recommendations?seed_artists=${artists.items[0].id},${artists.items[1].id},${artists.items[2].id},${artists.items[3].id},${artists.items[4].id}&target_energy=1&limit=10`, accessToken),
+            dancing: await getData(`https://api.spotify.com/v1/recommendations?seed_artists=${artists.items[0].id},${artists.items[1].id},${artists.items[2].id},${artists.items[3].id},${artists.items[4].id}&target_danceability=1&limit=10`, accessToken)
         }
+
+        console.log(artists);
 
         return {
             props: {

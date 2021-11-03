@@ -11,8 +11,16 @@
     color: var(--textColor);
     padding-bottom: 6rem;
 
+    &:nth-last-of-type(1) {
+        padding-bottom: 4rem;
+    }
+
     @include laptop {
         padding-bottom: 20rem;
+
+        &:nth-last-of-type(1) {
+            padding-bottom: 8rem;
+        }
     }
 
     svg {
@@ -138,8 +146,12 @@
         }
 
         .recommendationsContainer {
-            margin-top: 1rem;
+            margin-top: 3rem;
             position: relative;
+
+            &:nth-of-type(3) {
+                margin-top: 1rem;
+            }
 
             @include laptop {
                 margin-top: 4rem;
@@ -193,20 +205,6 @@
             li:nth-last-of-type(1) {
                 margin-right: 2rem;
             }
-
-            // @include laptop {
-            //     &::after {
-            //         content: "";
-            //         position: absolute;
-            //         top: 0;
-            //         right: 0;
-            //         width: 16rem;
-            //         height: 100%;
-            //         z-index: 1;
-            //         pointer-events: none;
-            //         background: linear-gradient(to left, $purple 30%, transparent);
-            //     }
-            // }
         }
     }
 

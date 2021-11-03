@@ -101,7 +101,7 @@ const Home: FC = () => {
                 </figure>
             </article>
             <aside className={styles.section3}>
-                <h2 className={styles.title}><a href={loginUrl}>{lang.title3[0]}</a>{lang.title3[1]}</h2>
+                <h2 className={styles.title}><a href={loginUrl} onClick={startLoading}>{lang.title3[0]}</a>{lang.title3[1]}</h2>
                 <p className={styles.subtitle}>{lang.subtitle3}</p>
             </aside>
             <Footer loginUrl={loginUrl}/>

@@ -3,7 +3,6 @@ import { ArtistContent, TrackContent } from "../../lib/types";
 import ErrorMessage from "../ErrorMessage/ErrorMessage";
 import { LangContext } from "../../lib/contexts/LangContext";
 import styles from "./MusicController.module.scss";
-// import splitArtists from "../../lib/tools/splitArtists";
 
 interface Props {
     tracks: TrackContent[]
@@ -16,7 +15,6 @@ const MusicController: FC<Props> = ({ tracks }) => {
     const [playing, setPlaying] = useState(false);
     const [trackNumber, setTrackNumber] = useState(0);
     const [track, setTrack] = useState<{ name: string, url: string, artists: ArtistContent[] }>();
-    // const [artist, setArtist] = useState("");
     const [hidden, setHidden] = useState(true);
     const [width, setWidth] = useState(0);
     const [displayError, setDisplayError] = useState(false);
@@ -80,7 +78,6 @@ const MusicController: FC<Props> = ({ tracks }) => {
                 url: tracks[trackNumber].external_urls.spotify,
                 artists: tracks[trackNumber].artists
             });
-            // setArtist(splitArtists(tracks[trackNumber].artists));
             
             await audio.current.pause();
             setPlaying(false);
@@ -123,7 +120,7 @@ const MusicController: FC<Props> = ({ tracks }) => {
             <audio ref={audio} onEnded={changeAudio}/>
             <div className={styles.background} style={{ width: `${width}px` }}/>
             <div className={styles.textContainer}>
-                <p><a className={styles.track} href={track?.url} target="_blank" rel="noreferrer">{track?.name}</a></p>
+                <p>{track?.url ? <a className={styles.track} href={track?.url} target="_blank" rel="noreferrer">{track?.name}</a> : null}</p>
                 <p>
                     {track?.artists.map((artist, index) => {
                         return (
